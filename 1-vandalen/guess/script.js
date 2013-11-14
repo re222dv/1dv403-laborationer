@@ -4,18 +4,22 @@ window.onload = function(){
 	
 	var secret = Math.floor( Math.random() * 100)+1;
     var guesses = 0;
+    var old_guesses = [];
 	
 	// I denna funktion ska du skriva koden för att hantera "spelet"
 	var guess = function(number){
 		console.log("Det hemliga talet: " + secret); // Du når den yttre variabeln secret innifrån funktionen.
 		console.log("Du gissade: " + number); // Detta nummer är det som användaren gissade på.
 
-        if (isNaN(number)) {
-            return [false, "Du måste ange ett nummer"];
+        if (isNaN(number) || Math.floor(+number) != number) {
+            return [false, "Du måste ange ett heltal"];
         } else if (0 > number || number > 100) {
             return [false, "Talet är utanför intervallet 0 - 100"];
+        } else if (old_guesses.indexOf(number) !== -1) {
+            return [false, "Knäppgök! Du har redan gissat på " + number];
         }
 
+        old_guesses[guesses] = number;
         guesses += 1;
 
         if (number == secret) {
