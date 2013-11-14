@@ -4,16 +4,20 @@ window.onload = function(){
 
 	// I denna funktion ska du skriva koden för att hantera "spelet"
 	var convertString = function(str){
-		// Plats för förändring.		
-		// Returnera den konverterade strängen.
-		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
-	
+        var new_string = '';
 
+        for (var i = 0; i < str.length; i++) {
+            var new_char = str[i].toUpperCase();
+            if (new_char !== str[i]) {
+                new_string += new_char;
+            } else {
+                new_string += new_char.toLowerCase();
+            }
+        }
 
+        new_string = new_string.replace(/a/gi, '#');
 
-
-
-
+        return new_string;
 	};
 	// ------------------------------------------------------------------------------
 
