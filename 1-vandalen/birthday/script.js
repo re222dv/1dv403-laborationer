@@ -36,7 +36,7 @@ window.onload = function(){
 		p.classList.remove( "error");
 
 		try {
-			var answer = birthday(input.value) // Läser in texten från textrutan och skickar till funktionen "convertString"
+			var answer = birthday(input.value); // Läser in texten från textrutan och skickar till funktionen "convertString"
 			var message;
 			switch (answer){
 				case 0: message = "Grattis på födelsedagen!";

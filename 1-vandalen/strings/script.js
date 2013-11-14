@@ -34,7 +34,7 @@ window.onload = function(){
 		p.classList.remove( "error");
 
 		try {
-			var answer = convertString(input.value) // Läser in texten från textrutan och skickar till funktionen "convertString"
+			var answer = convertString(input.value); // Läser in texten från textrutan och skickar till funktionen "convertString"
 			p.innerHTML = answer;		// Skriver ut texten från arrayen som skapats i funktionen.	
 		} catch (error){
 			p.classList.add( "error"); // Växla CSS-klass, IE10+
