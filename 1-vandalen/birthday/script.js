@@ -2,16 +2,24 @@
 
 window.onload = function(){
 
-	
+
 	var birthday = function(date){
-		
+        if (date.match(/^\d\d\d\d-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2]\d)|(3[0-1]))$/) === null) {
+            throw new Error('Ange ett datum i formatet YYYY-MM-DD');
+        }
 
+        var now = new Date();
+        var birthday = new Date(date+'T23:59:59');
+        if (isNaN(birthday.getTime())) {
+            throw new Error('Den dagen finns inte');
+        }
 
-			// Din kod här.
+        birthday.setFullYear(now.getFullYear());
+        if (birthday.getTime() - now.getTime() < 0) {
+            birthday.setFullYear(now.getFullYear()+1);
+        }
 
-
-
-
+        return Math.floor((birthday.getTime() - now.getTime()) / (1000*60*60*24));
 	};
 	// ------------------------------------------------------------------------------
 
