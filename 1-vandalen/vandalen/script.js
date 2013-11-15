@@ -9,8 +9,8 @@ var makePerson = function(persArr){
     persArr.forEach(function(person) {
         names.push(person.name);
 
-        max_age = max_age > person.age ? max_age : person.age;
-        min_age = min_age < person.age ? min_age : person.age;
+        max_age = Math.max(max_age, person.age);
+        min_age = Math.min(min_age, person.age);
 
         total_age += person.age;
     });
