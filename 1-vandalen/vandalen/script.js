@@ -1,17 +1,26 @@
 "use strict";
 
 var makePerson = function(persArr){
-    var total_age = 0;
+    var names = [];
     var max_age = 0;
     var min_age = Infinity;
-    var names = [];
+    var total_age = 0;
 
     persArr.forEach(function(person) {
         names.push(person.name);
-        total_age += person.age;
+
         max_age = max_age > person.age ? max_age : person.age;
         min_age = min_age < person.age ? min_age : person.age;
+
+        total_age += person.age;
     });
+
+    function localeSort(a, b) {
+        return a.localeCompare(b);
+    }
+
+    names.sort(localeSort);
+    names = names.join(', ');
 
     var average_age = Math.round(total_age / persArr.length);
 
