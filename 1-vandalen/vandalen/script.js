@@ -15,11 +15,10 @@ var makePerson = function(persArr){
         total_age += person.age;
     });
 
-    function localeSort(a, b) {
+    names.sort(function(a, b) {
         return a.localeCompare(b);
-    }
+    });
 
-    names.sort(localeSort);
     names = names.join(', ');
 
     var average_age = Math.round(total_age / persArr.length);
