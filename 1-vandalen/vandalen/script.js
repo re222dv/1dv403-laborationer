@@ -1,6 +1,18 @@
 "use strict";
 
 var makePerson = function(persArr){
+    if (typeof persArr != 'object') {
+        throw new Error('persArr needs to be an array');
+    }
+
+    for (var i in persArr) {
+        if (typeof persArr[i] != 'object' ||
+            typeof persArr[i].name != 'string' ||
+            typeof persArr[i].age != 'number') {
+            throw new Error('persArr needs to consist of objects with a string value name and int value age');
+        }
+    }
+
     var names = [];
     var max_age = 0;
     var min_age = Infinity;

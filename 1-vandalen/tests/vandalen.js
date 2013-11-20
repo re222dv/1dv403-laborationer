@@ -1,5 +1,6 @@
 test( "Datatyper", function() {
-  var indata = [{name: "John Häggerud", born: "1976-02-23"}, {name: "Johan Leitet", born: "1977-12-12"},  {name: "Mats Loock", born: "1967-06-02"}];
+  var indata2 = [{name: "John Häggerud", born: "1976-02-23"}, {name: "Johan Leitet", born: "1977-12-12"},  {name: "Mats Loock", born: "1967-06-02"}];
+  var indata = [{name: "John Häggerud", age: 37}, {name: "Johan Leitet", age: 36},  {name: "Mats Loock", age: 46}];
 
   ok( typeof makePerson(indata) == "object" , "Funktionen returnerar ett objekt." );
   
@@ -12,8 +13,8 @@ test( "Datatyper", function() {
 
 test( "Namnhantering (names)", function() {
 
-  var indata = [{name: "John Häggerud", born: "1976-02-23"}, {name: "Johan Leitet", born: "1977-12-12"},  {name: "Mats Loock", born: "1967-06-02"}];
-  var indata2 = [{name: "Ö", born: "1976-02-23"}, {name: "Å", born: "1977-12-12"},  {name: "Ä", born: "1967-06-02"}];
+  var indata = [{name: "John Häggerud", age: 37}, {name: "Johan Leitet", age: 36},  {name: "Mats Loock", age: 46}];
+  var indata2 = [{name: "Ö", age: 37}, {name: "Å", age: 36},  {name: "Ä", age: 46}];
 
 
   equal( makePerson(indata).names, "Johan Leitet, John Häggerud, Mats Loock" , "Namn returneras sorterat" );
