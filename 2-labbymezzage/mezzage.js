@@ -30,6 +30,7 @@ Message.prototype.getDateText = function () {
 }
 
 function LabbyMessage() {
+    var messages = [];
 }
 
 window.onload = function () {
