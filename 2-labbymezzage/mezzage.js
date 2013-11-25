@@ -28,9 +28,9 @@ Message.prototype.getHtmlText = function() {
 };
 
 Message.prototype.getDateText = function() {
-    var hours = this.getDate().getHours();
-    var minutes = this.getDate().getMinutes();
-    var seconds = this.getDate().getSeconds();
+    var hours = ("0" + this.getDate().getHours()).slice(-2);
+    var minutes = ("0" + this.getDate().getMinutes()).slice(-2);
+    var seconds = ("0" + this.getDate().getSeconds()).slice(-2);
     return hours + ':' + minutes + ':' + seconds;
 };
 
@@ -73,6 +73,14 @@ function LabbyMessage(id) {
         var date = document.createElement('p');
         date.className = 'date';
         date.innerHTML = message.getDateText();
+        date.onclick = function() {
+            var months = [ "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September",
+                           "Oktober", "November", "December" ];
+            var day = message.getDate().getDate();
+            var month = months[message.getDate().getMonth()];
+            var year = message.getDate().getFullYear();
+            alert('Inlägget skapades den ' + day + ' ' + month + ' ' + year + ' klockan ' + message.getDateText());
+        };
         element.appendChild(date);
 
         var text = document.createElement('p');

@@ -37,7 +37,8 @@
           margin-top: -5px;
           margin-right: -5px;
           color: gray;
-          text-align: right; }
+          text-align: right;
+          cursor: pointer; }
     .messageboard .container .counter {
       position: absolute;
       left: 10px;
