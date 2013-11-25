@@ -1,0 +1,29 @@
+.messageboard {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background-color: lightblue; }
+  .messageboard .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px;
+    padding: 10px;
+    width: 440px;
+    height: 440px;
+    background-color: #ffffff; }
+    .messageboard .container .messages {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 440px;
+      height: 310px;
+      overflow: auto; }
+    .messageboard .container .write {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      height: 110px; }
+      .messageboard .container .write textarea {
+        width: 435px;
+        height: 80px; }
