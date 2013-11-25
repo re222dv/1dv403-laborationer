@@ -57,8 +57,17 @@ function LabbyMessage(id) {
     this.showMessage = function(message) {
         var element = document.createElement('div');
         element.className = 'message';
-        element.innerHTML = '<p class="date">' + message.getDateText() + '</p>'+
-                            '<p class="text">' + message.getHtmlText() + '</p>';
+
+        var date = document.createElement('p');
+        date.className = 'date';
+        date.innerHTML = message.getDateText();
+        element.appendChild(date);
+
+        var text = document.createElement('p');
+        text.className = 'text';
+        text.innerHTML = message.getHtmlText();
+        element.appendChild(text);
+
         messageField.appendChild(element);
 
         self.updateCounter();
