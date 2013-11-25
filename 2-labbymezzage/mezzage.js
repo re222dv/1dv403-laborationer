@@ -51,12 +51,24 @@ function LabbyMessage(id) {
     };
 
     this.updateCounter = function() {
-        counter.innerText = 'Antal meddelanden: ' + messages.length;
+        counter.innerHTML = 'Antal meddelanden: ' + messages.length;
     };
 
     this.showMessage = function(message) {
         var element = document.createElement('div');
         element.className = 'message';
+
+        var close = document.createElement('span');
+        close.className = 'close';
+        close.innerHTML = 'x';
+        close.onclick = function() {
+            var index = messages.indexOf(message);
+            if (index > -1) {
+                messages.splice(index, 1);
+            }
+            self.redrawMessages();
+        };
+        element.appendChild(close);
 
         var date = document.createElement('p');
         date.className = 'date';
@@ -69,6 +81,16 @@ function LabbyMessage(id) {
         element.appendChild(text);
 
         messageField.appendChild(element);
+
+        self.updateCounter();
+    };
+
+    this.redrawMessages = function() {
+        messageField.innerHTML = '';
+
+        for (var i = 0; i < messages.length; i++) {
+            self.showMessage(messages[i]);
+        }
 
         self.updateCounter();
     };
