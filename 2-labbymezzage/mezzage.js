@@ -28,7 +28,10 @@ Message.prototype.getHtmlText = function () {
 }
 
 Message.prototype.getDateText = function () {
-    return this.getDate();
+    var hours = this.getDate().getHours();
+    var minutes = this.getDate().getMinutes();
+    var seconds = this.getDate().getSeconds();
+    return hours + ':' + minutes + ':' + seconds;
 }
 
 function LabbyMessage(id) {
