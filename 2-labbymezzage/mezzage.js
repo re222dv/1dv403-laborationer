@@ -4,35 +4,35 @@ function Message(message, date) {
 
     this.getText = function() {
         return message;
-    }
+    };
 
-    this.setText = function (value) {
+    this.setText = function(value) {
         message = value;
-    }
+    };
 
-    this.getDate = function () {
+    this.getDate = function() {
         return date;
-    }
+    };
 
-    this.setDate = function (value) {
+    this.setDate = function(value) {
         date = value;
-    }
+    };
 }
 
 Message.prototype.toString = function() {
     return this.getText() + ' (' + this.getDate() + ')';
-}
+};
 
-Message.prototype.getHtmlText = function () {
+Message.prototype.getHtmlText = function() {
     return this.getText().replace(/\n/g, '<br />');
-}
+};
 
-Message.prototype.getDateText = function () {
+Message.prototype.getDateText = function() {
     var hours = this.getDate().getHours();
     var minutes = this.getDate().getMinutes();
     var seconds = this.getDate().getSeconds();
     return hours + ':' + minutes + ':' + seconds;
-}
+};
 
 function LabbyMessage(id) {
     var self = this;
@@ -98,6 +98,6 @@ function LabbyMessage(id) {
     self.updateCounter();
 }
 
-window.onload = function () {
+window.onload = function() {
     new LabbyMessage('messageboard');
-}
+};
