@@ -31,9 +31,18 @@ Message.prototype.getDateText = function () {
     return this.getDate();
 }
 
-function LabbyMessage() {
+function LabbyMessage(id) {
     var messages = [];
+
+    var button = document.querySelector('#' + id + ' button');
+    var textarea = document.querySelector('#' + id + ' textarea');
+
+    button.onclick = function() {
+        var message = new Message(textarea.value, new Date());
+        messages.push(message);
+    };
 }
 
 window.onload = function () {
+    new LabbyMessage('messageboard');
 }
