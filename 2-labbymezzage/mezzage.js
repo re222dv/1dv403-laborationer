@@ -32,15 +32,36 @@ Message.prototype.getDateText = function () {
 }
 
 function LabbyMessage(id) {
+    var self = this;
     var messages = [];
 
     var button = document.querySelector('#' + id + ' button');
+    var counter = document.querySelector('#' + id + ' .counter');
+    var messageField = document.querySelector('#' + id + ' .messages');
     var textarea = document.querySelector('#' + id + ' textarea');
 
     button.onclick = function() {
         var message = new Message(textarea.value, new Date());
         messages.push(message);
+
+        self.showMessage(message);
     };
+
+    this.updateCounter = function() {
+        counter.innerText = 'Antal meddelanden: ' + messages.length;
+    };
+
+    this.showMessage = function(message) {
+        var element = document.createElement('div');
+        element.className = 'message';
+        element.innerHTML = '<p class="date">' + message.getDateText() + '</p>'+
+                            '<p class="text">' + message.getHtmlText() + '</p>';
+        messageField.appendChild(element);
+
+        self.updateCounter();
+    };
+
+    self.updateCounter();
 }
 
 window.onload = function () {
