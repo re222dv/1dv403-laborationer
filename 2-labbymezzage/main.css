@@ -35,6 +35,7 @@
           cursor: pointer; }
         .messageboard .container .messages .message .date {
           margin-top: -5px;
+          margin-left: 50px;
           margin-right: -5px;
           color: gray;
           text-align: right;
