@@ -55,11 +55,13 @@ function LabbyMessage(id) {
         close.className = 'close';
         close.innerHTML = 'x';
         close.onclick = function() {
-            var index = messages.indexOf(message);
-            if (index > -1) {
-                messages.splice(index, 1);
+            if (confirm('Vill du verkligen radera meddelandet?')) {
+                var index = messages.indexOf(message);
+                if (index > -1) {
+                    messages.splice(index, 1);
+                }
+                self.redrawMessages();
             }
-            self.redrawMessages();
         };
         element.appendChild(close);
 
