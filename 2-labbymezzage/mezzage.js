@@ -43,13 +43,6 @@ function LabbyMessage(id) {
     var messageField = document.querySelector('#' + id + ' .messages');
     var textarea = document.querySelector('#' + id + ' textarea');
 
-    button.onclick = function() {
-        var message = new Message(textarea.value, new Date());
-        messages.push(message);
-
-        self.showMessage(message);
-    };
-
     this.updateCounter = function() {
         counter.innerHTML = 'Antal meddelanden: ' + messages.length;
     };
@@ -101,6 +94,24 @@ function LabbyMessage(id) {
         }
 
         self.updateCounter();
+    };
+
+    this.postMessage = function() {
+        var message = new Message(textarea.value, new Date());
+        messages.push(message);
+
+        self.showMessage(message);
+    };
+
+    button.onclick = this.postMessage;
+
+    textarea.onkeydown = function(event) {
+        if (event.which == 13 || event.keyCode == 13) {
+            if (!event.shiftKey) {
+                self.postMessage();
+                return false;
+            }
+        }
     };
 
     self.updateCounter();
