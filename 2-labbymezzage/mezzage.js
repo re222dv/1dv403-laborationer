@@ -103,6 +103,7 @@ function LabbyMessage(id) {
         messages.push(message);
 
         self.showMessage(message);
+        textarea.value = '';
     };
 
     button.onclick = this.postMessage;
