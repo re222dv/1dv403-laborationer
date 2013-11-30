@@ -52,6 +52,10 @@ Memory.prototype.init = function() {
                                 brick.className = 'flipPerm';
                             });
                             memory.flipped = 0;
+
+                            if (memory.score >= memory.board.length/2) {
+                                alert('Win!');
+                            }
                         } else {
                             setTimeout(function() {
                                 [].forEach.call(memory.node.querySelectorAll('.flip'), function(brick) {
