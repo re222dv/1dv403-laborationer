@@ -6,6 +6,7 @@ function Memory(id, rows, cols) {
     this.cols = cols;
 
     this.board = [];
+    this.flipped = 0;
 
     this.node = document.getElementById(id);
 
@@ -13,6 +14,7 @@ function Memory(id, rows, cols) {
 }
 
 Memory.prototype.init = function() {
+    var memory = this;
     this.board = RandomGenerator.getPictureArray(this.rows, this.cols);
     this.node.className = 'memory';
 
@@ -32,7 +34,21 @@ Memory.prototype.init = function() {
             img2.setAttribute('src', 'pics/' + this.board[row*4 + col] + '.png');
 
             a.onclick = function() {
-                this.className = 'flip';
+                if (memory.flipped <= 1) {
+                    this.className = 'flip';
+                    memory.flipped++;
+
+                    if (memory.flipped >= 2) {
+
+                        setTimeout(function() {
+                            [].forEach.call(memory.node.querySelectorAll('.flip'), function(brick) {
+                                brick.className = '';
+                            });
+
+                            memory.flipped = 0;
+                        }, 1500);
+                    }
+                }
             };
 
             a.appendChild(img);
