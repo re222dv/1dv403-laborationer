@@ -7,6 +7,7 @@ function Memory(id, rows, cols) {
 
     this.board = [];
     this.flipped = 0;
+    this.score = 0;
 
     this.node = document.getElementById(id);
 
@@ -30,23 +31,36 @@ Memory.prototype.init = function() {
             var img2 = document.createElement('img');
 
             a.setAttribute('href', '#');
+            a.setAttribute('data-pic', ''+this.board[row*4 + col]);
             img.setAttribute('src', 'pics/0.png');
             img2.setAttribute('src', 'pics/' + this.board[row*4 + col] + '.png');
 
             a.onclick = function() {
-                if (memory.flipped <= 1) {
+                if (memory.flipped <= 1 && this.className != 'flip' && this.className != 'flipPerm') {
                     this.className = 'flip';
                     memory.flipped++;
 
                     if (memory.flipped >= 2) {
 
-                        setTimeout(function() {
-                            [].forEach.call(memory.node.querySelectorAll('.flip'), function(brick) {
-                                brick.className = '';
-                            });
+                        var pics = [].map.call(memory.node.querySelectorAll('.flip'), function(brick) {
+                            return brick.getAttribute('data-pic');
+                        });
 
+                        if (pics[0] == pics[1]) {
+                            memory.score++;
+                            [].forEach.call(memory.node.querySelectorAll('.flip'), function(brick) {
+                                brick.className = 'flipPerm';
+                            });
                             memory.flipped = 0;
-                        }, 1500);
+                        } else {
+                            setTimeout(function() {
+                                [].forEach.call(memory.node.querySelectorAll('.flip'), function(brick) {
+                                    brick.className = '';
+                                });
+
+                                memory.flipped = 0;
+                            }, 1500);
+                        }
                     }
                 }
             };
