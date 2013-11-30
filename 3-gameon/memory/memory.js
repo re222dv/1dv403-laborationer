@@ -14,6 +14,7 @@ function Memory(id, rows, cols) {
 
 Memory.prototype.init = function() {
     this.board = RandomGenerator.getPictureArray(this.rows, this.cols);
+    this.node.className = 'memory';
 
     var table = document.createElement('table');
 
@@ -29,6 +30,10 @@ Memory.prototype.init = function() {
             a.setAttribute('href', '#');
             img.setAttribute('src', 'pics/0.png');
             img2.setAttribute('src', 'pics/' + this.board[row*4 + col] + '.png');
+
+            a.onclick = function() {
+                this.className = 'flip';
+            };
 
             a.appendChild(img);
             a.appendChild(img2);

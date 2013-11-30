@@ -1,0 +1,19 @@
+.memory {
+    table {
+        td {
+            a {
+                img:last-child {
+                    display: none;
+                }
+            }
+            a.flip {
+                img:first-child {
+                    display: none;
+                }
+                img:last-child {
+                    display: block;
+                }
+            }
+        }
+    }
+}
