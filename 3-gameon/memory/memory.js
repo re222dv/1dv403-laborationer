@@ -1,7 +1,6 @@
 "use strict"
 
 function Memory(id, rows, cols) {
-    var self = this;
     this.rows = rows;
     this.cols = cols;
 
@@ -98,7 +97,7 @@ Memory.prototype.won = function() {
     var text = document.createTextNode('You won in ' + this.tries + ' tries, ' + rate + '.');
     p.appendChild(text);
     this.node.appendChild(p);
-}
+};
 
 window.onload = function() {
     new Memory('memory', 4, 4);
