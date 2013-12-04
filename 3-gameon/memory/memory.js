@@ -92,8 +92,10 @@ Memory.prototype.init = function() {
 };
 
 Memory.prototype.won = function() {
+    var rate = this.tries < this.board.length ? 'good' : 'lazy';
+
     var p = document.createElement('p');
-    var text = document.createTextNode('You won in ' + this.tries + ' tries.');
+    var text = document.createTextNode('You won in ' + this.tries + ' tries, ' + rate + '.');
     p.appendChild(text);
     this.node.appendChild(p);
 }
