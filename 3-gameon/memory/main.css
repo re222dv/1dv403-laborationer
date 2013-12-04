@@ -1,13 +1,16 @@
-.memory table, .memory h1 {
-  width: 160px;
-  text-align: center; }
-.memory table td a {
-  display: inline-block;
-  width: 24px;
-  height: 24px; }
-  .memory table td a img:last-child {
+.memory {
+  float: left;
+  margin-right: 20px; }
+  .memory table, .memory h1 {
+    width: 160px;
+    text-align: center; }
+  .memory table td a {
+    display: inline-block;
+    width: 24px;
+    height: 24px; }
+    .memory table td a img:last-child {
+      display: none; }
+  .memory table td a.flip img:first-child, .memory table td a.flipPerm img:first-child {
     display: none; }
-.memory table td a.flip img:first-child, .memory table td a.flipPerm img:first-child {
-  display: none; }
-.memory table td a.flip img:last-child, .memory table td a.flipPerm img:last-child {
-  display: block; }
+  .memory table td a.flip img:last-child, .memory table td a.flipPerm img:last-child {
+    display: block; }

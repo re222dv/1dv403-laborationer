@@ -88,5 +88,5 @@ Memory.prototype.init = function() {
 };
 
 window.onload = function() {
-    new Memory('memory', 4, 2);
+    new Memory('memory', 4, 4);
 };
