@@ -7,6 +7,10 @@
     table {
         td {
             a {
+                display: inline-block;
+                width: 24px;
+                height: 24px;
+
                 img:last-child {
                     display: none;
                 }
