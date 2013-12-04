@@ -1,5 +1,15 @@
 "use strict"
 
+if (!HTMLElement.prototype.addNext) {
+    HTMLElement.prototype.addNext = function(element) {
+        if (this.nextSibling) {
+            this.parentNode.insertBefore(element, this.nextSibling);
+        } else {
+            this.parentNode.appendChild(element);
+        }
+    }
+}
+
 function ValidatedForm(id) {
     var form = document.getElementById(id);
 
@@ -20,16 +30,40 @@ function ValidatedForm(id) {
 ValidatedForm.prototype.textField = function() {
     if (this.value === '') {
         this.className = 'bad';
+
+        if (this.nextSibling.tagName !== 'SPAN') {
+            var span = document.createElement('span');
+            var text = document.createTextNode('Detta fält får inte lämnas blankt.');
+            span.className = 'error';
+            span.appendChild(text);
+            this.addNext(span);
+        }
     } else {
         this.className = 'good';
+
+        if (this.nextSibling.tagName === 'SPAN') {
+            this.parentNode.removeChild(this.nextSibling);
+        }
     }
 };
 
 ValidatedForm.prototype.postcodeField = function() {
     if (this.value.match(/\d\d\d\d\d/) == null) {
         this.className = 'bad';
+
+        if (this.nextSibling.tagName !== 'SPAN') {
+            var span = document.createElement('span');
+            var text = document.createTextNode('Ange ett postnummer i formatet XXXXX.');
+            span.className = 'error';
+            span.appendChild(text);
+            this.addNext(span);
+        }
     } else {
         this.className = 'good';
+
+        if (this.nextSibling.tagName === 'SPAN') {
+            this.parentNode.removeChild(this.nextSibling);
+        }
     }
 };
 
@@ -41,8 +75,20 @@ ValidatedForm.prototype.emailField = function() {
                                 '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?');
     if (this.value.match(emailRegex) == null) {
         this.className = 'bad';
+
+        if (this.nextSibling.tagName !== 'SPAN') {
+            var span = document.createElement('span');
+            var text = document.createTextNode('Ange en korrekt e-post adress.');
+            span.className = 'error';
+            span.appendChild(text);
+            this.addNext(span);
+        }
     } else {
         this.className = 'good';
+
+        if (this.nextSibling.tagName === 'SPAN') {
+            this.parentNode.removeChild(this.nextSibling);
+        }
     }
 };
 
