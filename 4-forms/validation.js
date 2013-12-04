@@ -48,7 +48,7 @@ ValidatedForm.prototype.textField = function() {
 };
 
 ValidatedForm.prototype.postcodeField = function() {
-    if (this.value.match(/\d\d\d\d\d/) == null) {
+    if (this.value.match(/^\d\d\d\d\d$/) == null) {
         this.className = 'bad';
 
         if (this.nextSibling.tagName !== 'SPAN') {
