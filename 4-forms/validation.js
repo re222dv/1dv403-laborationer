@@ -39,8 +39,14 @@ function ValidatedForm(id) {
             var element = form.children[i];
             if (element.tagName === 'INPUT') {
                 element.onblur();
+            }
+        }
 
+        for (i = 0; i < form.children.length; i++) {
+            element = form.children[i];
+            if (element.tagName === 'INPUT') {
                 if (element.classList.contains('bad')) {
+                    element.focus();
                     return false;
                 }
 
