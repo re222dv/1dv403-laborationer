@@ -37,9 +37,9 @@ Memory.prototype.init = function() {
             var img2 = document.createElement('img');
 
             a.setAttribute('href', '#');
-            a.setAttribute('data-pic', ''+this.board[row*4 + col]);
+            a.setAttribute('data-pic', ''+this.board[row*this.cols + col]);
             img.setAttribute('src', 'pics/0.png'); // Back
-            img2.setAttribute('src', 'pics/' + this.board[row*4 + col] + '.png'); //Front
+            img2.setAttribute('src', 'pics/' + this.board[row*this.cols + col] + '.png'); //Front
 
             a.onclick = function() {
                 // Only allow two flipped bricks at a time and don't flip already flipped bricks
