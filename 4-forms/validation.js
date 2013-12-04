@@ -48,6 +48,8 @@ ValidatedForm.prototype.textField = function() {
 };
 
 ValidatedForm.prototype.postcodeField = function() {
+    this.value = this.value.replace(/^(SE)? ?(\d\d\d)( |\-)?(\d\d)$/, '$2$4');
+
     if (this.value.match(/^\d\d\d\d\d$/) == null) {
         this.className = 'bad';
 
