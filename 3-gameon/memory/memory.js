@@ -19,12 +19,18 @@ Memory.prototype.init = function() {
     this.board = RandomGenerator.getPictureArray(this.rows, this.cols);
     this.node.className = 'memory';
 
+    var h1 = document.createElement('h1');
+    var text = document.createTextNode('MEMORY');
+    h1.appendChild(text);
+    this.node.appendChild(h1);
+
     var table = document.createElement('table');
 
     for (var row = 0; row < this.rows; row++) {
         var tr = document.createElement('tr');
 
         for (var col = 0; col < this.cols; col++) {
+
             var td = document.createElement('td');
             var a = document.createElement('a');
             var img = document.createElement('img');
@@ -32,16 +38,18 @@ Memory.prototype.init = function() {
 
             a.setAttribute('href', '#');
             a.setAttribute('data-pic', ''+this.board[row*4 + col]);
-            img.setAttribute('src', 'pics/0.png');
-            img2.setAttribute('src', 'pics/' + this.board[row*4 + col] + '.png');
+            img.setAttribute('src', 'pics/0.png'); // Back
+            img2.setAttribute('src', 'pics/' + this.board[row*4 + col] + '.png'); //Front
 
             a.onclick = function() {
+                // Only allow two flipped bricks at a time and don't flip already flipped bricks
                 if (memory.flipped <= 1 && this.className != 'flip' && this.className != 'flipPerm') {
                     this.className = 'flip';
                     memory.flipped++;
 
                     if (memory.flipped >= 2) {
 
+                        // Get the value of the flipped bricks
                         var pics = [].map.call(memory.node.querySelectorAll('.flip'), function(brick) {
                             return brick.getAttribute('data-pic');
                         });
@@ -80,5 +88,5 @@ Memory.prototype.init = function() {
 };
 
 window.onload = function() {
-    new Memory('memory', 4, 4);
+    new Memory('memory', 4, 2);
 };
