@@ -60,10 +60,13 @@ button {
       .modal .dialog .fields div {
         display: table-row; }
         .modal .dialog .fields div span {
-          display: table-cell; }
+          display: table-cell;
+          padding: 2px 0; }
         .modal .dialog .fields div span:first-child {
           font-weight: bold;
           min-width: 120px; }
+      .modal .dialog .fields div:nth-child(even) {
+        background-color: #fafafa; }
     .modal .dialog .buttons {
       overflow: auto;
       width: 100%;

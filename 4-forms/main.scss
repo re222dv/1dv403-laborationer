@@ -83,6 +83,8 @@ button {
 
                 span {
                     display: table-cell;
+
+                    padding: 2px 0;
                 }
 
                 span:first-child {
@@ -90,6 +92,10 @@ button {
 
                     min-width: 120px;
                 }
+            }
+
+            div:nth-child(even) {
+                background-color: #fafafa;
             }
         }
 
