@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="main.css" />
     </head>
     <body>
+        <h1>Fyll i din betalningsplan</h1>
         <form action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php" method="POST" id="form">
             <label for="firstName">Förnamn</label><br />
             <input type="text" name="firstName" id="firstName" required /><br />
@@ -21,7 +22,18 @@
                 <option value="0">Mellan</option>
                 <option value="0">Hög</option>
             </select><br />
-            <input type="submit" value="Genomför köp" />
+            <button class="submit">Genomför köp</button>
+            <div class="modal">
+                <div class="dialog">
+                    <h2>Vänligen bekräfta ditt köp</h2>
+                    <div class="fields">
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" value="Bekräfta köp" />
+                        <button class="close">Avbryt</button>
+                    </div>
+                </div>
+            </div>
         </form>
         <script src="validation.js"></script>
     </body>

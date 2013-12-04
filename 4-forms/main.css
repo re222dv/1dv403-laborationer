@@ -1,7 +1,7 @@
 html {
   font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; }
 
-input, select {
+input, select, button {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin-bottom: 10px;
@@ -20,7 +20,8 @@ input.bad {
 input:focus, select:focus {
   box-shadow: 0px 0px 0px 2px darkgray; }
 
-input[type=submit] {
+input[type=submit], button.submit {
+  width: 150px;
   height: 35px;
   color: white;
   background: linear-gradient(to bottom, lightgreen 0%, forestgreen 50%, darkgreen 51%, forestgreen 100%);
@@ -30,3 +31,48 @@ input[type=submit] {
 .error {
   margin-left: 10px;
   color: red; }
+
+button {
+  width: 100px;
+  height: 35px; }
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); }
+  .modal .dialog {
+    position: relative;
+    top: 50px;
+    margin: auto;
+    padding: 0;
+    width: 500px;
+    background-color: white; }
+    .modal .dialog h2 {
+      margin: 0;
+      padding: 8px; }
+    .modal .dialog .fields {
+      display: table;
+      margin: 15px; }
+      .modal .dialog .fields div {
+        display: table-row; }
+        .modal .dialog .fields div span {
+          display: table-cell; }
+        .modal .dialog .fields div span:first-child {
+          font-weight: bold;
+          min-width: 120px; }
+    .modal .dialog .buttons {
+      overflow: auto;
+      width: 100%;
+      background-color: #eee; }
+      .modal .dialog .buttons input, .modal .dialog .buttons button {
+        float: right;
+        margin: 10px;
+        margin-left: 0;
+        cursor: pointer; }
+
+.show {
+  display: block; }

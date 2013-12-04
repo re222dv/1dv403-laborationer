@@ -12,6 +12,8 @@ if (!HTMLElement.prototype.addNext) {
 
 function ValidatedForm(id) {
     var form = document.getElementById(id);
+    var modal = form.querySelector('.modal');
+    var fields = modal.querySelector('.fields');
 
     for (var i = 0; i < form.children.length; i++) {
         var element = form.children[i];
@@ -23,7 +25,58 @@ function ValidatedForm(id) {
             } else if (element.getAttribute('type') === 'email') {
                 element.onblur = this.emailField;
             }
+        } else if (element.tagName === 'BUTTON' && element.className === 'submit') {
+            element.onclick = displayModal;
         }
+    }
+
+    modal.querySelector('.close').onclick = closeModal;
+
+    function displayModal() {
+        fields.innerHTML = '';
+
+        for (var i = 0; i < form.children.length; i++) {
+            var element = form.children[i];
+            if (element.tagName === 'INPUT') {
+                element.onblur();
+
+                if (element.classList.contains('bad')) {
+                    return false;
+                }
+
+                var label = form.querySelector('label[for="' + element.id + '"]');
+
+                addModalField(label.innerHTML, element.value);
+            } else if (element.tagName === 'SELECT') {
+                var label = form.querySelector('label[for="' + element.id + '"]');
+                var option = element.options[element.selectedIndex];
+
+                addModalField(label.innerHTML, option.innerHTML);
+            }
+        }
+
+        modal.classList.add('show');
+        return false;
+    }
+
+    function closeModal() {
+        modal.classList.remove('show');
+        return false;
+    }
+
+    function addModalField(nameText, valueText) {
+        var div = document.createElement('div');
+        var name = document.createElement('span');
+        var value = document.createElement('span');
+
+        var text = document.createTextNode(nameText + ':');
+        name.appendChild(text);
+        text = document.createTextNode(valueText);
+        value.appendChild(text);
+
+        div.appendChild(name);
+        div.appendChild(value);
+        fields.appendChild(div);
     }
 }
 
