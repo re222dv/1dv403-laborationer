@@ -1,0 +1,38 @@
+html {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+}
+
+input, select {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    margin-bottom: 10px;
+    width: 150px;
+    height: 25px;
+
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+input.good {
+    box-shadow: 0px 0px 0px 2px green;
+}
+
+input.bad {
+    box-shadow: 0px 0px 0px 2px red;
+}
+
+input:focus, select:focus {
+    box-shadow: 0px 0px 0px 2px darkgray;
+}
+
+input[type=submit] {
+    height: 35px;
+
+    color: white;
+    background: linear-gradient(to bottom, lightgreen 0%, forestgreen 50%, darkgreen 51%, forestgreen 100%);
+
+    font-size: 1.1em;
+    text-shadow: -1px -1px 2px darkgreen;
+}
