@@ -6,7 +6,7 @@ RWWM.Window = function(width, height, title, icon) {
     var container = document.createElement("div");
     var decorator = document.createElement("div");
     this.view = document.createElement("div");
-    var statusbar = document.createElement("p");
+    this.statusbar = document.createElement("p");
 
     container.className = "window";
     container.style.width = width + 'px';
@@ -26,19 +26,28 @@ RWWM.Window = function(width, height, title, icon) {
     decorator.appendChild(icon_e);
 
     this.view.className = "view";
-    statusbar.className = "statusbar";
+    this.statusbar.className = "statusbar";
 
     container.appendChild(decorator);
     container.appendChild(this.view);
-    container.appendChild(statusbar);
+    container.appendChild(this.statusbar);
 
     RWWM.root.appendChild(container);
+};
+
+RWWM.Window.prototype.setStatus = function(status) {
+    this.statusbar.innerHTML = status;
+};
+
+RWWM.Window.prototype.setStatusLoading = function() {
+    this.setStatus('<img src="pics/loading.gif" /> Loading')
 };
 
 RWWM.init = function() {
     RWWM.root = document.getElementById("RWWM");
 
-    new RWWM.Window(300, 400, "Test", "");
+    var t = new RWWM.Window(300, 400, "Test", "");
+    t.setStatus('test')
 };
 
 window.onload = RWWM.init;
