@@ -46,7 +46,7 @@ RWWM.Window.prototype.setStatusLoading = function() {
 RWWM.init = function() {
     RWWM.root = document.getElementById("RWWM");
 
-    var t = new RWWM.Window(300, 400, "Test", "");
+    var t = new RWWM.Window(300, 400, "Test", "pics/loading.gif");
     t.setStatus('test')
 };
 
