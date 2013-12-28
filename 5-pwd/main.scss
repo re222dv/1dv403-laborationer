@@ -100,11 +100,15 @@
         }
 
         .view {
+            -mox-box-sizing: border-box;
+            box-sizing: border-box;
             position: absolute;
             top: 30px;
-            left: 1px;
+            left: 2px;
 
-            width: calc(100% - 2px);
+            padding: 1px;
+
+            width: calc(100% - 4px);
             height: calc(100% - 50px);
 
             background: #dedddc;
