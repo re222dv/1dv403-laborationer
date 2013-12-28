@@ -80,9 +80,6 @@ RWWM.init = function() {
     RWWM.root = document.getElementById("RWWM");
 
     RWWM.launcher.init();
-
-    var t = new RWWM.Window(300, 400, "Test", "pics/loading.gif");
-    t.setStatus('test')
 };
 
 window.onload = RWWM.init;
