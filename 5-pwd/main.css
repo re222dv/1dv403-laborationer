@@ -1,0 +1,92 @@
+#RWWM {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("pics/background.jpg");
+  background-size: cover; }
+  #RWWM .launcher {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 52px;
+    height: 100%;
+    background: rgba(65, 65, 65, 0.5);
+    border-right: 1px solid #000000; }
+    #RWWM .launcher button {
+      margin-top: 4px;
+      margin-left: 4px;
+      padding: 2px;
+      width: 44px;
+      height: 44px;
+      background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 50%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px; }
+      #RWWM .launcher button img {
+        width: 38px;
+        height: 38px;
+        border-radius: 4px; }
+  #RWWM .window {
+    position: fixed;
+    top: 10px;
+    left: 55px;
+    background: #3c3b37;
+    border: 1px solid #21201c;
+    border-radius: 5px 5px 0 0; }
+    #RWWM .window .decorator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: linear-gradient(to bottom, #4c4b46 0%, #3d3c38 100%);
+      border-top: 1px solid #cdccb6;
+      border-radius: 5px 5px 0 0; }
+      #RWWM .window .decorator button {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(to bottom, #f78b6a 0%, #df4d1a 50%);
+        border: 1px solid #21201c;
+        border-radius: 20px; }
+      #RWWM .window .decorator span {
+        position: absolute;
+        top: 5px;
+        left: 30px;
+        color: #ffffff;
+        text-shadow: #000000 0 -1px 1px; }
+      #RWWM .window .decorator img {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px; }
+    #RWWM .window .view {
+      -mox-box-sizing: border-box;
+      box-sizing: border-box;
+      position: absolute;
+      top: 30px;
+      left: 2px;
+      padding: 1px;
+      width: calc(100% - 4px);
+      height: calc(100% - 50px);
+      background: #dedddc;
+      border-radius: 2px; }
+    #RWWM .window .statusbar {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      margin: 0;
+      padding-left: 5px;
+      width: 100%;
+      height: 20px;
+      color: #ffffff;
+      text-shadow: #000000 0 -1px 1px; }
+      #RWWM .window .statusbar img {
+        margin-bottom: -3px; }
