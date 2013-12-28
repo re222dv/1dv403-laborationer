@@ -43,8 +43,32 @@ RWWM.Window.prototype.setStatusLoading = function() {
     this.setStatus('<img src="pics/loading.gif" /> Loading')
 };
 
+RWWM.launcher = {
+    launcher: document.createElement("div"),
+
+    init: function() {
+        this.launcher.className = "launcher";
+        RWWM.root.appendChild(this.launcher);
+    },
+    add: function(name, icon, Constructor, kwargs) {
+        kwargs = kwargs || {};
+
+        var button = document.createElement("button");
+        var icon_e = document.createElement("img");
+        icon_e.setAttribute("src", icon);
+        icon_e.setAttribute("title", name);
+        button.appendChild(icon_e);
+        button.onclick = function() {
+            new Constructor(kwargs);
+        };
+        this.launcher.appendChild(button);
+    }
+};
+
 RWWM.init = function() {
     RWWM.root = document.getElementById("RWWM");
+
+    RWWM.launcher.init();
 
     var t = new RWWM.Window(300, 400, "Test", "pics/loading.gif");
     t.setStatus('test')
