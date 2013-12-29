@@ -42,6 +42,10 @@
                 border-radius: 4px;
             }
         }
+
+        button:hover {
+            background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%);
+        }
     }
 
     .window {
@@ -78,6 +82,10 @@
                 background: linear-gradient(to bottom, #f78b6a 0%, #df4d1a 50%);
                 border: 1px solid #21201c;
                 border-radius: 20px;
+            }
+
+            button:hover {
+                background: linear-gradient(to bottom, #ff9469 0%, #f78b6a 50%);
             }
 
             span {
