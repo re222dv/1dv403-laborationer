@@ -34,8 +34,6 @@
       background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%); }
   #RWWM .window {
     position: fixed;
-    top: 10px;
-    left: 55px;
     background: #3c3b37;
     border: 1px solid #21201c;
     border-radius: 5px 5px 0 0; }

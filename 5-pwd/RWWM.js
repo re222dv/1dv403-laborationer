@@ -2,6 +2,33 @@
 
 var RWWM = RWWM || {};
 
+RWWM.windows = {
+    top: 1,
+    left: 53,
+
+    getTop: function(height) {
+
+        if (this.top + height > innerHeight) {
+            this.top = 1;
+        }
+
+        this.top += 15;
+
+        return (this.top - 15) + 'px';
+    },
+
+    getLeft: function(width) {
+
+        if (this.left + width > innerWidth) {
+            this.left = 53;
+        }
+
+        this.left += 15;
+
+        return (this.left - 15) + 'px';
+    }
+};
+
 RWWM.Window = function(width, height, title, icon) {
     var that = this;
 
@@ -11,6 +38,8 @@ RWWM.Window = function(width, height, title, icon) {
     this.statusbar = document.createElement("p");
 
     this.container.className = "window";
+    this.container.style.top = RWWM.windows.getTop(height);
+    this.container.style.left = RWWM.windows.getLeft(width);
     this.container.style.width = width + 'px';
     this.container.style.height = height + 'px';
 
