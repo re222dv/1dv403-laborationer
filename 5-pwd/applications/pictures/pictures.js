@@ -6,7 +6,7 @@ RWWM.applications.pictures = {};
 
 RWWM.applications.pictures.Pictures = function() {
     var that = this;
-    RWWM.Window.call(this, 400, 500, "Pictures", "");
+    RWWM.Window.call(this, 400, 500, "Pictures", "applications/pictures/icon.png");
 
     var timeout = window.setTimeout(function() {
         that.setStatusLoading();
@@ -24,4 +24,4 @@ RWWM.applications.pictures.Pictures = function() {
 RWWM.applications.pictures.Pictures.prototype = Object.create(RWWM.Window.prototype);
 RWWM.applications.pictures.Pictures.prototype.constructor = RWWM.applications.pictures.Pictures;
 
-RWWM.launcher.add("Pictures", "", RWWM.applications.pictures.Pictures);
+RWWM.launcher.add("Pictures", "applications/pictures/icon.png", RWWM.applications.pictures.Pictures);
