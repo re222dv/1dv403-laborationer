@@ -1,0 +1,11 @@
+#RWWM .window.pictures .view {
+  padding-bottom: 10px; }
+  #RWWM .window.pictures .view button {
+    margin-top: 10px;
+    margin-left: 15px;
+    padding: 8px;
+    background: #94a893;
+    border: 1px solid transparent;
+    border-radius: 8px; }
+  #RWWM .window.pictures .view button:hover {
+    border: 1px solid #687b67; }

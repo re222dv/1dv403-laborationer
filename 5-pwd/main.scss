@@ -119,6 +119,8 @@
             width: calc(100% - 4px);
             height: calc(100% - 50px);
 
+            overflow: auto;
+
             background: #dedddc;
             border-radius: 2px;
         }

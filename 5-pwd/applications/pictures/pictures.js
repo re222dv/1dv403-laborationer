@@ -6,7 +6,9 @@ RWWM.applications.pictures = {};
 
 RWWM.applications.pictures.Pictures = function() {
     var that = this;
-    RWWM.Window.call(this, 400, 500, "Pictures", "applications/pictures/icon.png");
+    RWWM.Window.call(this, 365, 500, "Pictures", "applications/pictures/icon.png");
+
+    this.container.classList.add("pictures");
 
     var timeout = window.setTimeout(function() {
         that.setStatusLoading();
@@ -17,6 +19,27 @@ RWWM.applications.pictures.Pictures = function() {
         var end = Date.now();
         window.clearTimeout(timeout);
         that.setStatus(data.length + ' pictures loaded in ' + ((end - start) / 1000).toFixed(1) + ' seconds');
+
+        var width = data.reduce(function(prev, image) {
+            return Math.max(prev, image.thumbWidth);
+        }, 0) + 20;
+
+        var height = data.reduce(function(prev, image) {
+            return Math.max(prev, image.thumbHeight);
+        }, 0) + 20;
+
+        data.forEach(function(image) {
+            var button = document.createElement("button");
+            var img = document.createElement("img");
+
+            img.setAttribute("src", image.thumbURL);
+            button.appendChild(img);
+
+            button.style.width = width + 'px';
+            button.style.height = height + 'px';
+
+            that.view.appendChild(button);
+        });
     }});
 
 };
