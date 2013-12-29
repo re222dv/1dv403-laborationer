@@ -1,3 +1,8 @@
+#RWWM .window.picture .view {
+  background-color: #000000;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; }
 #RWWM .window.pictures .view {
   padding-bottom: 10px; }
   #RWWM .window.pictures .view button {

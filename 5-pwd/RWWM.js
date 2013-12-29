@@ -31,6 +31,8 @@ RWWM.windows = {
 
 RWWM.Window = function(width, height, title, icon) {
     var that = this;
+    width += 4;
+    height += 50;
 
     this.container = document.createElement("div");
     var decorator = document.createElement("div");

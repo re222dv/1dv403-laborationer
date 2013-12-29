@@ -4,6 +4,21 @@ var RWWM = RWWM || {};
 RWWM.applications = RWWM.applications || {};
 RWWM.applications.pictures = {};
 
+RWWM.applications.pictures.Picture = function(image) {
+    RWWM.Window.call(this, image.width, image.height, "Picture", "applications/pictures/icon.png");
+
+    this.container.classList.add("picture");
+
+    this.setStatus(image.width + ' x ' + image.height + ' 100%');
+
+    this.view.style.backgroundImage = 'url("' + image.URL + '")';
+    console.log('url("' + image.URL + '")');
+    console.log(this.view.style.backgroundImage);
+};
+
+RWWM.applications.pictures.Picture.prototype = Object.create(RWWM.Window.prototype);
+RWWM.applications.pictures.Picture.prototype.constructor = RWWM.applications.pictures.Picture;
+
 RWWM.applications.pictures.Pictures = function() {
     var that = this;
     RWWM.Window.call(this, 365, 500, "Pictures", "applications/pictures/icon.png");
@@ -37,6 +52,10 @@ RWWM.applications.pictures.Pictures = function() {
 
             button.style.width = width + 'px';
             button.style.height = height + 'px';
+
+            button.onclick = function() {
+                new RWWM.applications.pictures.Picture(image);
+            };
 
             that.view.appendChild(button);
         });
