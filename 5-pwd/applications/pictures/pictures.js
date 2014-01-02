@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 var RWWM = RWWM || {};
 RWWM.applications = RWWM.applications || {};
