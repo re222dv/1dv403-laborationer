@@ -3,6 +3,8 @@
 var RWWM = RWWM || {};
 
 RWWM.windows = {
+    open: [],
+
     top: 1,
     left: 53,
 
@@ -51,7 +53,7 @@ RWWM.Window = function(width, height, title, icon) {
     var icon_e = document.createElement("img");
 
     close.innerHTML = '&#x2715;';
-    close.onclick = function() {that.close()};
+    close.onclick = function(e) {that.close(); e.stopPropagation()};
     $(title_e).text(title);
     icon_e.setAttribute("src", icon);
 
@@ -67,6 +69,10 @@ RWWM.Window = function(width, height, title, icon) {
     this.container.appendChild(this.statusbar);
 
     RWWM.root.appendChild(this.container);
+
+    RWWM.windows.open.push(this);
+    this.container.style.zIndex = RWWM.windows.open.length;
+    this.container.onclick = function() {that.focus()};
 };
 
 RWWM.Window.prototype.setStatus = function(status) {
@@ -82,7 +88,26 @@ RWWM.Window.prototype.close = function() {
         this.onclose();
     }
 
+    var index = RWWM.windows.open.indexOf(this);
+    if (index > -1) {
+        RWWM.windows.open.splice(index, 1);
+    }
+
     this.container.parentNode.removeChild(this.container);
+};
+
+RWWM.Window.prototype.focus = function() {
+    alert(RWWM.windows.open.length);
+    var index = RWWM.windows.open.indexOf(this);
+    if (index > -1) {
+        RWWM.windows.open.splice(index, 1);
+    }
+
+    RWWM.windows.open.push(this);
+
+    for (var i = 0; i < RWWM.windows.open.length; i++) {
+        RWWM.windows.open[i].container.style.zIndex = i;
+    }
 };
 
 RWWM.launcher = {
