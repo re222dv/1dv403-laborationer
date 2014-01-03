@@ -70,15 +70,73 @@
         right: 5px;
         width: 20px;
         height: 20px; }
+    #RWWM .window .menubar {
+      position: absolute;
+      top: 30px;
+      left: 2px;
+      margin: 0;
+      padding-left: 5px;
+      padding-bottom: 1px;
+      width: 100%;
+      height: 20px;
+      color: #ffffff;
+      cursor: pointer;
+      list-style: none; }
+      #RWWM .window .menubar > li {
+        float: left;
+        position: relative;
+        padding: 0 2px;
+        border: 1px solid transparent;
+        border-bottom: 0; }
+        #RWWM .window .menubar > li ul {
+          display: none;
+          position: absolute;
+          left: -1px;
+          margin: 0;
+          padding: 0;
+          z-index: 1000;
+          background: #3c3b37;
+          list-style: none;
+          white-space: pre; }
+          #RWWM .window .menubar > li ul li {
+            padding: 3px 5px; }
+            #RWWM .window .menubar > li ul li ul {
+              display: none;
+              position: absolute;
+              top: 0;
+              left: 100%; }
+          #RWWM .window .menubar > li ul li:hover {
+            background-color: rgba(221, 70, 20, 0.3); }
+            #RWWM .window .menubar > li ul li:hover > ul {
+              display: block; }
+          #RWWM .window .menubar > li ul .sub {
+            padding-right: 10px; }
+          #RWWM .window .menubar > li ul .sub:after {
+            content: '';
+            display: inline-block;
+            position: relative;
+            left: 10px;
+            width: 0;
+            height: 0;
+            z-index: 2000;
+            border-top: 5px solid transparent;
+            border-left: 5px solid #ffffff;
+            border-bottom: 5px solid transparent; }
+      #RWWM .window .menubar > li:hover {
+        background-color: rgba(221, 70, 20, 0.3);
+        border: 1px solid #000000;
+        border-radius: 5px 5px 0 0; }
+        #RWWM .window .menubar > li:hover > ul {
+          display: block; }
     #RWWM .window .view {
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       position: absolute;
-      top: 30px;
+      top: 51px;
       left: 2px;
       padding: 1px;
       width: calc(100% - 4px);
-      height: calc(100% - 50px);
+      height: calc(100% - 71px);
       overflow: auto;
       background: #dedddc;
       border-radius: 2px; }
