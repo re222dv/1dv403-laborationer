@@ -1,0 +1,36 @@
+#RWWM .window.reader .view {
+  padding: 5px; }
+  #RWWM .window.reader .view h2:first-of-type, #RWWM .window.reader .view .rssFeed > a:first-of-type, #RWWM .window.reader .view p:first-of-type {
+    display: none; }
+  #RWWM .window.reader .view h2 {
+    margin-bottom: -1px;
+    padding: 10px;
+    padding-top: 5px;
+    z-index: 2;
+    background-color: #ffffff;
+    border: 1px solid #91908f; }
+  #RWWM .window.reader .view .rssFeed > a {
+    display: block;
+    margin: 1px 3px;
+    padding: 4px 7px;
+    overflow: hidden;
+    z-index: 3;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  #RWWM .window.reader .view br {
+    display: none; }
+  #RWWM .window.reader .view br + p {
+    border-top: 1px solid #91908f; }
+  #RWWM .window.reader .view p {
+    margin-top: -2px;
+    margin-bottom: 0;
+    padding: 10px;
+    padding-top: 5px;
+    z-index: 2;
+    background-color: #ffffff;
+    border: 1px solid #91908f;
+    border-top: 0; }
+  #RWWM .window.reader .view p + h2 {
+    margin-top: 2rem; }

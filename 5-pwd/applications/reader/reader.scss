@@ -1,4 +1,61 @@
 #RWWM {
     .window.reader .view {
+        padding: 5px;
+
+        h2:first-of-type, .rssFeed > a:first-of-type, p:first-of-type {
+            display: none;
+        }
+
+        h2 {
+            margin-bottom: -1px;
+            padding: 10px;
+            padding-top: 5px;
+
+            z-index: 2;
+
+            background-color: #ffffff;
+            border: 1px solid #91908f;
+        }
+
+        .rssFeed > a {
+            display: block;
+            margin: 1px 3px;
+            padding: 4px 7px;
+
+            overflow: hidden;
+            z-index: 3;
+
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.6);
+            //border: 1px solid rgba(0, 0, 0, 0.6);
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        br {
+            display: none;
+        }
+
+        br + p {
+            border-top: 1px solid #91908f;
+        }
+
+        p {
+            margin-top: -2px;
+            margin-bottom: 0;
+            padding: 10px;
+            padding-top: 5px;
+
+            z-index: 2;
+
+            background-color: #ffffff;
+            border: 1px solid #91908f;
+            border-top: 0;
+        }
+
+        p + h2 {
+            margin-top: 2rem;
+        }
     }
 }
