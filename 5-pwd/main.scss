@@ -120,7 +120,6 @@
             height: 20px;
 
             color: #ffffff;
-            cursor: pointer;
             list-style: none;
 
             > li {
@@ -130,6 +129,8 @@
 
                 border: 1px solid transparent;
                 border-bottom: 0;
+
+                cursor: pointer;
 
                 ul {
                     display: none;
@@ -147,6 +148,8 @@
 
                     li {
                         padding: 3px 5px;
+
+                        cursor: pointer;
 
                         ul {
                             display: none;
