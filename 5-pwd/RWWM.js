@@ -97,7 +97,6 @@ RWWM.Window.prototype.close = function() {
 };
 
 RWWM.Window.prototype.focus = function() {
-    alert(RWWM.windows.open.length);
     var index = RWWM.windows.open.indexOf(this);
     if (index > -1) {
         RWWM.windows.open.splice(index, 1);
