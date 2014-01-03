@@ -71,7 +71,7 @@
         width: 20px;
         height: 20px; }
     #RWWM .window .view {
-      -mox-box-sizing: border-box;
+      -moz-box-sizing: border-box;
       box-sizing: border-box;
       position: absolute;
       top: 30px;
