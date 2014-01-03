@@ -1,0 +1,14 @@
+#RWWM .window.memory table {
+  width: 100%;
+  height: 100%;
+  text-align: center; }
+#RWWM .window.memory table td a {
+  display: inline-block;
+  width: 48px;
+  height: 48px; }
+  #RWWM .window.memory table td a img:last-child {
+    display: none; }
+#RWWM .window.memory table td a.flip img:first-child, #RWWM .window.memory table td a.flipPerm img:first-child {
+  display: none; }
+#RWWM .window.memory table td a.flip img:last-child, #RWWM .window.memory table td a.flipPerm img:last-child {
+  display: block; }
