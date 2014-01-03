@@ -136,7 +136,7 @@ RWWM.Window.prototype.renderUl = function(ul, menu) {
         li.appendChild(a);
 
         if (typeof(value) == "function") {
-            a.onclick = function() {value.call(that)};
+            a.onclick = (function(value){return function() {value.call(that)}}(value));
         } else if (typeof(value) == "object") {
             a.className = 'sub';
             var u = document.createElement('ul');
