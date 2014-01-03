@@ -31,13 +31,18 @@ RWWM.windows = {
     }
 };
 
-RWWM.Window = function(width, height, title, icon) {
+RWWM.Window = function(width, height, title, icon, menu) {
+    menu = menu || {
+        'File': {'Close': this.close}
+    };
+
     var that = this;
     width += 4;
     height += 50;
 
     this.container = document.createElement("div");
     var decorator = document.createElement("div");
+    this.menubar = document.createElement("ul");
     this.view = document.createElement("div");
     this.statusbar = document.createElement("p");
 
@@ -65,6 +70,11 @@ RWWM.Window = function(width, height, title, icon) {
     this.statusbar.className = "statusbar";
 
     this.container.appendChild(decorator);
+
+    this.menubar.className = "menubar";
+    this.renderMenu(menu);
+    this.container.appendChild(this.menubar);
+
     this.container.appendChild(this.view);
     this.container.appendChild(this.statusbar);
 
@@ -107,6 +117,42 @@ RWWM.Window.prototype.focus = function() {
     for (var i = 0; i < RWWM.windows.open.length; i++) {
         RWWM.windows.open[i].container.style.zIndex = i;
     }
+};
+
+RWWM.Window.prototype.renderUl = function(ul, menu) {
+    var that = this;
+
+    for (var key in menu) {
+        if (!menu.hasOwnProperty(key)) {
+            continue;
+        }
+
+        var value = menu[key];
+
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        $(a).text(key);
+
+        li.appendChild(a);
+
+        if (typeof(value) == "function") {
+            a.onclick = function() {value.call(that)};
+        } else if (typeof(value) == "object") {
+            a.className = 'sub';
+            var u = document.createElement('ul');
+            li.appendChild(this.renderUl(u, value));
+        }
+
+        ul.appendChild(li);
+    }
+
+    return ul;
+};
+
+RWWM.Window.prototype.renderMenu = function(menu) {
+    this.menubar.innerHTML = '';
+
+    this.renderUl(this.menubar, menu);
 };
 
 RWWM.launcher = {
