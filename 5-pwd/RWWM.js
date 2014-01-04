@@ -156,7 +156,7 @@ RWWM.Window.prototype.renderUl = function(ul, menu) {
         li.appendChild(a);
 
         if (typeof(value) == "function") {
-            a.onclick = (function(value){return function() {value.call(that)}}(value));
+            li.onclick = (function(value){return function() {value.call(that)}}(value));
         } else if (value instanceof Array) {
             a.className = 'option';
             var options = value[0];
@@ -177,7 +177,7 @@ RWWM.Window.prototype.renderUl = function(ul, menu) {
                     }
 
                     (function(i, li) {
-                        a.onclick = function() {
+                        li.onclick = function() {
                             options.onchange.call(that, value[i]);
                             sub.querySelector('.selected').className = '';
                             li.className = 'selected';
