@@ -81,7 +81,7 @@ RWWM.Window = function(width, height, title, icon, menu) {
 
     RWWM.windows.open.push(this);
     this.container.style.zIndex = RWWM.windows.open.length;
-    this.container.onclick = function() {that.focus()};
+    this.container.addEventListener('click', function() {return that.focus()}, true);
 };
 
 RWWM.Window.prototype.setSize = function(width, height) {
@@ -130,15 +130,21 @@ RWWM.Window.prototype.close = function() {
 
 RWWM.Window.prototype.focus = function() {
     var index = RWWM.windows.open.indexOf(this);
-    if (index > -1) {
-        RWWM.windows.open.splice(index, 1);
-    }
 
-    RWWM.windows.open.push(this);
+    if (index != RWWM.windows.open.length - 1) {
+        if (index > -1) {
+            RWWM.windows.open.splice(index, 1);
+        }
 
-    for (var i = 0; i < RWWM.windows.open.length; i++) {
-        RWWM.windows.open[i].container.style.zIndex = i;
+        RWWM.windows.open.push(this);
+
+        for (var i = 0; i < RWWM.windows.open.length; i++) {
+            RWWM.windows.open[i].container.style.zIndex = i;
+        }
+
+        return false;
     }
+    return true;
 };
 
 RWWM.Window.prototype.renderUl = function(ul, menu) {

@@ -12,8 +12,6 @@ RWWM.applications.pictures.Picture = function(image) {
     this.setStatus(image.width + ' x ' + image.height + ' 100%');
 
     this.view.style.backgroundImage = 'url("' + image.URL + '")';
-    console.log('url("' + image.URL + '")');
-    console.log(this.view.style.backgroundImage);
 };
 
 RWWM.applications.pictures.Picture.prototype = Object.create(RWWM.Window.prototype);
