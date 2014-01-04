@@ -67,7 +67,13 @@ RWWM.applications.memory.RandomGenerator = {
 };
 
 RWWM.applications.memory.Memory = function() {
-    RWWM.Window.call(this, 320, 320, "Memory", "applications/memory/icon.png");
+    RWWM.Window.call(this, 320, 320, "Memory", "applications/memory/icon.png", {
+        'File': {'Close': this.close},
+        'Edit': {
+            'Restart': this.restart,
+            'Size': [{'selected': 4, 'onchange': this.setBoardSize}, '2x2', '2x3', '2x4', '3x4', '4x4']
+        }
+    });
 
     this.container.classList.add("memory");
 
@@ -159,6 +165,49 @@ RWWM.applications.memory.Memory.prototype.init = function() {
         table.appendChild(tr);
     }
     this.node.appendChild(table);
+};
+
+RWWM.applications.memory.Memory.prototype.restart = function() {
+    this.board = [];
+    this.flipped = 0;
+    this.score = 0;
+    this.tries = 0;
+
+    this.node.innerHTML = '';
+
+    this.init();
+    this.setStatus('');
+};
+
+RWWM.applications.memory.Memory.prototype.setBoardSize = function(size) {
+    switch (size) {
+        case '2x2':
+            this.rows = 2;
+            this.cols = 2;
+            this.setSize(160, 160);
+            break;
+        case '2x3':
+            this.rows = 2;
+            this.cols = 3;
+            this.setSize(240, 160);
+            break;
+        case '2x4':
+            this.rows = 2;
+            this.cols = 4;
+            this.setSize(320, 160);
+            break;
+        case '3x4':
+            this.rows = 3;
+            this.cols = 4;
+            this.setSize(320, 240);
+            break;
+        case '4x4':
+            this.rows = 4;
+            this.cols = 4;
+            this.setSize(320, 320);
+            break;
+    }
+    this.restart();
 };
 
 RWWM.applications.memory.Memory.prototype.won = function() {
