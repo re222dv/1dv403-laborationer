@@ -9,6 +9,7 @@ RWWM.windows = {
     left: 53,
 
     getTop: function(height) {
+        height += 71;
 
         if (this.top + height > innerHeight) {
             this.top = 1;
@@ -20,6 +21,7 @@ RWWM.windows = {
     },
 
     getLeft: function(width) {
+        width += 4;
 
         if (this.left + width > innerWidth) {
             this.left = 53;
@@ -37,8 +39,6 @@ RWWM.Window = function(width, height, title, icon, menu) {
     };
 
     var that = this;
-    width += 4;
-    height += 50;
 
     this.container = document.createElement("div");
     var decorator = document.createElement("div");
@@ -49,8 +49,7 @@ RWWM.Window = function(width, height, title, icon, menu) {
     this.container.className = "window";
     this.container.style.top = RWWM.windows.getTop(height);
     this.container.style.left = RWWM.windows.getLeft(width);
-    this.container.style.width = width + 'px';
-    this.container.style.height = height + 'px';
+    this.setSize(width, height);
 
     decorator.className = "decorator";
     var close = document.createElement("button");
@@ -83,6 +82,25 @@ RWWM.Window = function(width, height, title, icon, menu) {
     RWWM.windows.open.push(this);
     this.container.style.zIndex = RWWM.windows.open.length;
     this.container.onclick = function() {that.focus()};
+};
+
+RWWM.Window.prototype.setSize = function(width, height) {
+    width += 4;
+    height += 71;
+
+    var top = parseInt(this.container.style.top);
+    var left = parseInt(this.container.style.left);
+
+    if (top + height > innerHeight) {
+        this.container.style.top = (top - ((top + height) - innerHeight)) + 'px';
+    }
+
+    if (left + width > innerWidth) {
+        this.container.style.left = (left - ((left + width) - innerWidth)) + 'px';
+    }
+
+    this.container.style.width = width + 'px';
+    this.container.style.height = height + 'px';
 };
 
 RWWM.Window.prototype.setStatus = function(status) {
