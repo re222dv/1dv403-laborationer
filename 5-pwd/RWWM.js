@@ -92,11 +92,15 @@ RWWM.Window.prototype.setSize = function(width, height) {
     var left = parseInt(this.container.style.left);
 
     if (top + height > innerHeight) {
-        this.container.style.top = (top - ((top + height) - innerHeight)) + 'px';
+        top = top - ((top + height) - innerHeight);
+        top = top < 0 ? 0 : top;
+        this.container.style.top = top + 'px'
     }
 
     if (left + width > innerWidth) {
-        this.container.style.left = (left - ((left + width) - innerWidth)) + 'px';
+        left = left - ((left + width) - innerWidth);
+        left = left < 0 ? 0 : left;
+        this.container.style.left = left + 'px';
     }
 
     this.container.style.width = width + 'px';
