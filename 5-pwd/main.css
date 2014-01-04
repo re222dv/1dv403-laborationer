@@ -8,7 +8,11 @@
   height: 100%;
   background-image: url("pics/background.jpg");
   background-size: cover;
-  font-family: 'Ubuntu', sans-serif; }
+  font-family: 'Ubuntu', sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
   #RWWM .launcher {
     position: fixed;
     top: 0;
@@ -62,8 +66,12 @@
         position: absolute;
         top: 5px;
         left: 30px;
+        max-width: calc(100% - 55px);
+        overflow: hidden;
         color: #ffffff;
-        text-shadow: #000000 -1px -1px 1px; }
+        text-shadow: #000000 -1px -1px 1px;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
       #RWWM .window .decorator img {
         position: absolute;
         top: 5px;
@@ -149,6 +157,8 @@
       background: #dedddc;
       border-radius: 2px; }
     #RWWM .window .statusbar {
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
       position: absolute;
       left: 0;
       bottom: 0;
@@ -157,7 +167,10 @@
       padding-bottom: 1px;
       width: 100%;
       height: 20px;
+      overflow: hidden;
       color: #ffffff;
-      text-shadow: #000000 -1px -1px 1px; }
+      text-shadow: #000000 -1px -1px 1px;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
       #RWWM .window .statusbar img {
         margin-bottom: -3px; }
