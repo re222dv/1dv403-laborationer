@@ -2,6 +2,11 @@
     .window.reader .view {
         padding: 5px;
 
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+
         h2:first-of-type, .rssFeed > a:first-of-type, p:first-of-type {
             display: none;
         }
