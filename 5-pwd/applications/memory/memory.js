@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var RWWM = RWWM || {};
 RWWM.applications = RWWM.applications || {};
@@ -67,27 +67,17 @@ RWWM.applications.memory.RandomGenerator = {
 };
 
 RWWM.applications.memory.Memory = function() {
-    RWWM.Window.call(this, 320, 320, "Memory", "applications/memory/icon.png", {
+    RWWM.Window.call(this, 320, 320, 'Memory', 'applications/memory/icon.png', {
         'File': {'Close': this.close},
         'Edit': {
             'Restart': this.restart,
-            'Size': [{'selected': 4, 'onchange': this.setBoardSize}, '2x2', '2x3', '2x4', '3x4', '4x4']
+            'Size': [{'selected': '4x4', 'onchange': this.setBoardSize}, '2x2', '2x3', '2x4', '3x4', '4x4']
         }
     });
 
-    this.container.classList.add("memory");
+    this.container.classList.add('memory');
 
-    this.rows = 4;
-    this.cols = 4;
-
-    this.board = [];
-    this.flipped = 0;
-    this.score = 0;
-    this.tries = 0;
-
-    this.node = this.view;
-
-    this.init();
+    this.setBoardSize('4x4');
 };
 
 RWWM.applications.memory.Memory.prototype = Object.create(RWWM.Window.prototype);
@@ -107,13 +97,13 @@ RWWM.applications.memory.Memory.prototype.init = function() {
                 memory.tries++;
 
                 // Get the value of the flipped bricks
-                var pics = [].map.call(memory.node.querySelectorAll('.flip'), function(brick) {
+                var pics = [].map.call(memory.view.querySelectorAll('.flip'), function(brick) {
                     return brick.getAttribute('data-pic');
                 });
 
                 if (pics[0] == pics[1]) {
                     memory.score++;
-                    [].forEach.call(memory.node.querySelectorAll('.flip'), function(brick) {
+                    [].forEach.call(memory.view.querySelectorAll('.flip'), function(brick) {
                         brick.className = 'flipPerm';
                     });
                     memory.flipped = 0;
@@ -126,7 +116,7 @@ RWWM.applications.memory.Memory.prototype.init = function() {
                 } else {
                     memory.setStatus('Paused');
                     setTimeout(function() {
-                        [].forEach.call(memory.node.querySelectorAll('.flip'), function(brick) {
+                        [].forEach.call(memory.view.querySelectorAll('.flip'), function(brick) {
                             brick.className = '';
                             memory.setStatus(memory.tries + ' tries made');
                         });
@@ -164,7 +154,7 @@ RWWM.applications.memory.Memory.prototype.init = function() {
         }
         table.appendChild(tr);
     }
-    this.node.appendChild(table);
+    this.view.appendChild(table);
 };
 
 RWWM.applications.memory.Memory.prototype.restart = function() {
@@ -173,7 +163,7 @@ RWWM.applications.memory.Memory.prototype.restart = function() {
     this.score = 0;
     this.tries = 0;
 
-    this.node.innerHTML = '';
+    this.view.innerHTML = '';
 
     this.init();
     this.setStatus('');
@@ -216,4 +206,4 @@ RWWM.applications.memory.Memory.prototype.won = function() {
     this.setStatus('You won in ' + this.tries + ' tries, ' + rate);
 };
 
-RWWM.launcher.add("Memory", "applications/memory/icon.png", RWWM.applications.memory.Memory);
+RWWM.launcher.add('Memory', 'applications/memory/icon.png', RWWM.applications.memory.Memory);

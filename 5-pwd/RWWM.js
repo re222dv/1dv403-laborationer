@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var RWWM = RWWM || {};
 
@@ -40,37 +40,37 @@ RWWM.Window = function(width, height, title, icon, menu) {
 
     var that = this;
 
-    this.container = document.createElement("div");
-    var decorator = document.createElement("div");
-    this.menubar = document.createElement("ul");
-    this.view = document.createElement("div");
-    this.statusbar = document.createElement("p");
+    this.container = document.createElement('div');
+    var decorator = document.createElement('div');
+    this.menubar = document.createElement('ul');
+    this.view = document.createElement('div');
+    this.statusbar = document.createElement('p');
 
-    this.container.className = "window";
+    this.container.className = 'window';
     this.container.style.top = RWWM.windows.getTop(height);
     this.container.style.left = RWWM.windows.getLeft(width);
     this.setSize(width, height);
 
-    decorator.className = "decorator";
-    var close = document.createElement("button");
-    var title_e = document.createElement("span");
-    var icon_e = document.createElement("img");
+    decorator.className = 'decorator';
+    var close = document.createElement('button');
+    var title_e = document.createElement('span');
+    var icon_e = document.createElement('img');
 
     close.innerHTML = '&#x2715;';
     close.onclick = function(e) {that.close(); e.stopPropagation()};
     $(title_e).text(title);
-    icon_e.setAttribute("src", icon);
+    icon_e.setAttribute('src', icon);
 
     decorator.appendChild(close);
     decorator.appendChild(title_e);
     decorator.appendChild(icon_e);
 
-    this.view.className = "view";
-    this.statusbar.className = "statusbar";
+    this.view.className = 'view';
+    this.statusbar.className = 'statusbar';
 
     this.container.appendChild(decorator);
 
-    this.menubar.className = "menubar";
+    this.menubar.className = 'menubar';
     this.renderMenu(menu);
     this.container.appendChild(this.menubar);
 
@@ -165,7 +165,7 @@ RWWM.Window.prototype.renderUl = function(ul, menu) {
 
         li.appendChild(a);
 
-        if (typeof(value) == "function") {
+        if (typeof(value) === 'function') {
             li.onclick = (function(value){return function() {value.call(that)}}(value));
         } else if (value instanceof Array) {
             a.className = 'option';
@@ -175,32 +175,32 @@ RWWM.Window.prototype.renderUl = function(ul, menu) {
             sub = document.createElement('ul');
 
             (function(value, options, sub) { // Create a new scope for the loop so value, options and sub keeps its values
-                for (var i = 0; i < value.length; i++) {
+                value.forEach(function(data) {
                     var li = document.createElement('li');
                     var a = document.createElement('a');
-                    $(a).text(value[i]);
+                    $(a).text(data);
 
                     li.appendChild(a);
 
-                    if (i === options.selected) {
+                    if (data === options.selected) {
                         li.className = 'selected';
                     }
 
-                    (function(i, li) {
-                        li.onclick = function() {
-                            options.onchange.call(that, value[i]);
+                    li.onclick = function() {
+                        if (li.className !== 'selected') {
+                            options.onchange.call(that, data);
                             sub.querySelector('.selected').className = '';
                             li.className = 'selected';
-                        };
-                    }(i, li));
+                        }
+                    };
 
                     sub.appendChild(li);
-                }
+                });
             }(value, options, sub));
 
             li.appendChild(sub);
 
-        } else if (typeof(value) == "object") {
+        } else if (typeof(value) === 'object') {
             a.className = 'sub';
             sub = document.createElement('ul');
             li.appendChild(this.renderUl(sub, value));
@@ -219,19 +219,19 @@ RWWM.Window.prototype.renderMenu = function(menu) {
 };
 
 RWWM.launcher = {
-    launcher: document.createElement("div"),
+    launcher: document.createElement('div'),
 
     init: function() {
-        this.launcher.className = "launcher";
+        this.launcher.className = 'launcher';
         RWWM.root.appendChild(this.launcher);
     },
     add: function(name, icon, Constructor, kwargs) {
         kwargs = kwargs || {};
 
-        var button = document.createElement("button");
-        var icon_e = document.createElement("img");
-        icon_e.setAttribute("src", icon);
-        icon_e.setAttribute("title", name);
+        var button = document.createElement('button');
+        var icon_e = document.createElement('img');
+        icon_e.setAttribute('src', icon);
+        icon_e.setAttribute('title', name);
         button.appendChild(icon_e);
         button.onclick = function() {
             new Constructor(kwargs);
@@ -241,7 +241,7 @@ RWWM.launcher = {
 };
 
 RWWM.init = function() {
-    RWWM.root = document.getElementById("RWWM");
+    RWWM.root = document.getElementById('RWWM');
 
     RWWM.launcher.init();
 };
