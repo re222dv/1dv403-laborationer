@@ -112,12 +112,11 @@
               display: block; }
           #RWWM .window .menubar > li ul .option + ul li {
             padding-left: 20px; }
-          #RWWM .window .menubar > li ul .option + ul .selected:before {
-            content: '\2022';
+          #RWWM .window .menubar > li ul .option + ul .selected a:before {
+            content: '\2B24';
             position: absolute;
-            margin-top: -15px;
             margin-left: -15px;
-            font-size: 2.5em; }
+            font-size: 0.7em; }
           #RWWM .window .menubar > li ul .sub, #RWWM .window .menubar > li ul .option {
             padding-right: 10px; }
           #RWWM .window .menubar > li ul .sub:after, #RWWM .window .menubar > li ul .option:after {

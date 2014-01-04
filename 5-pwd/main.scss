@@ -173,14 +173,13 @@
                             padding-left: 20px;
                         }
 
-                        .selected:before {
-                            content: '\2022'; //BULLET
+                        .selected a:before {
+                            content: '\2B24'; //Big circle
                             position: absolute;
 
-                            margin-top: -15px;
                             margin-left: -15px;
 
-                            font-size: 2.5em;
+                            font-size: 0.7em;
                         }
                     }
 
