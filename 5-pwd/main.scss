@@ -168,11 +168,27 @@
                         }
                     }
 
-                    .sub {
+                    .option + ul {
+                        li {
+                            padding-left: 20px;
+                        }
+
+                        .selected:before {
+                            content: '\2022'; //BULLET
+                            position: absolute;
+
+                            margin-top: -15px;
+                            margin-left: -15px;
+
+                            font-size: 2.5em;
+                        }
+                    }
+
+                    .sub, .option {
                         padding-right: 10px;
                     }
 
-                    .sub:after {
+                    .sub:after, .option:after {
                         content: '';
                         display: inline-block;
                         position: relative;

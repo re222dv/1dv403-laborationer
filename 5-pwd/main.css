@@ -110,9 +110,17 @@
             background-color: rgba(221, 70, 20, 0.3); }
             #RWWM .window .menubar > li ul li:hover > ul {
               display: block; }
-          #RWWM .window .menubar > li ul .sub {
+          #RWWM .window .menubar > li ul .option + ul li {
+            padding-left: 20px; }
+          #RWWM .window .menubar > li ul .option + ul .selected:before {
+            content: '\2022';
+            position: absolute;
+            margin-top: -15px;
+            margin-left: -15px;
+            font-size: 2.5em; }
+          #RWWM .window .menubar > li ul .sub, #RWWM .window .menubar > li ul .option {
             padding-right: 10px; }
-          #RWWM .window .menubar > li ul .sub:after {
+          #RWWM .window .menubar > li ul .sub:after, #RWWM .window .menubar > li ul .option:after {
             content: '';
             display: inline-block;
             position: relative;

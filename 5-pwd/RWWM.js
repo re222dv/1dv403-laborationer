@@ -122,6 +122,8 @@ RWWM.Window.prototype.focus = function() {
 RWWM.Window.prototype.renderUl = function(ul, menu) {
     var that = this;
 
+    var sub = undefined;
+
     for (var key in menu) {
         if (!menu.hasOwnProperty(key)) {
             continue;
@@ -137,10 +139,43 @@ RWWM.Window.prototype.renderUl = function(ul, menu) {
 
         if (typeof(value) == "function") {
             a.onclick = (function(value){return function() {value.call(that)}}(value));
+        } else if (value instanceof Array) {
+            a.className = 'option';
+            var options = value[0];
+            value.splice(0, 1);
+
+            sub = document.createElement('ul');
+
+            (function(value, options, sub) { // Create a new scope for the loop so value, options and sub keeps its values
+                for (var i = 0; i < value.length; i++) {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    $(a).text(value[i]);
+
+                    li.appendChild(a);
+
+                    if (i === options.selected) {
+                        li.className = 'selected';
+                    }
+
+                    (function(i, li) {
+                        a.onclick = function() {
+                            options.onchange.call(that, value[i]);
+                            sub.querySelector('.selected').className = '';
+                            li.className = 'selected';
+                        };
+                    }(i, li));
+
+                    sub.appendChild(li);
+                }
+            }(value, options, sub));
+
+            li.appendChild(sub);
+
         } else if (typeof(value) == "object") {
             a.className = 'sub';
-            var u = document.createElement('ul');
-            li.appendChild(this.renderUl(u, value));
+            sub = document.createElement('ul');
+            li.appendChild(this.renderUl(sub, value));
         }
 
         ul.appendChild(li);
