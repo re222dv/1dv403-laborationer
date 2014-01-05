@@ -9,7 +9,7 @@ RWWM.windows = {
     left: 53,
 
     getTop: function(height) {
-        height += 71;
+        height += 73;
 
         if (this.top + height > innerHeight) {
             this.top = 1;
@@ -33,12 +33,15 @@ RWWM.windows = {
     }
 };
 
-RWWM.Window = function(width, height, title, icon, menu) {
+RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     menu = menu || {
         'File': {'Close': this.close}
     };
+    resizeable = resizeable !== undefined ? resizeable : true;
 
     var that = this;
+
+    this.resizeable = resizeable;
 
     this.container = document.createElement('div');
     var decorator = document.createElement('div');
@@ -56,10 +59,22 @@ RWWM.Window = function(width, height, title, icon, menu) {
     var title_e = document.createElement('span');
     var icon_e = document.createElement('img');
 
-    close.innerHTML = '&#x2715;';
+    close.className = 'close';
     close.onclick = function(e) {that.close(); e.stopPropagation()};
+
     $(title_e).text(title);
     icon_e.setAttribute('src', icon);
+
+    if (resizeable) {
+        title_e.classList.add('twoButtons');
+
+        var maximize = document.createElement('button');
+
+        maximize.className = 'maximize';
+        maximize.onclick = function(e) {that.maximize(); e.stopPropagation()};
+
+        decorator.appendChild(maximize);
+    }
 
     decorator.appendChild(close);
     decorator.appendChild(title_e);
@@ -86,7 +101,7 @@ RWWM.Window = function(width, height, title, icon, menu) {
 
 RWWM.Window.prototype.setSize = function(width, height) {
     width += 4;
-    height += 71;
+    height += 73;
 
     var top = parseInt(this.container.style.top);
     var left = parseInt(this.container.style.left);
@@ -126,6 +141,22 @@ RWWM.Window.prototype.close = function() {
     }
 
     this.container.parentNode.removeChild(this.container);
+};
+
+RWWM.Window.prototype.maximize = function() {
+    if (this.resizeable) {
+        var that = this;
+
+        if (this.onmaximize) {
+            this.onmaximize();
+        }
+
+        this.container.classList.add('animate');
+        this.container.classList.toggle('maximized');
+        window.setTimeout(function() {
+            that.container.classList.remove('animate');
+        }, 100);
+    }
 };
 
 RWWM.Window.prototype.focus = function() {

@@ -73,7 +73,7 @@ RWWM.applications.memory.Memory = function() {
             'Restart': this.restart,
             'Size': [{'selected': '4x4', 'onchange': this.setBoardSize}, '2x2', '2x3', '2x4', '3x4', '4x4']
         }
-    });
+    }, false);
 
     this.container.classList.add('memory');
 
