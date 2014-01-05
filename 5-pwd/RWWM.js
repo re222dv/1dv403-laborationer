@@ -56,17 +56,18 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
     decorator.className = 'decorator';
     var close = document.createElement('button');
-    var title_e = document.createElement('span');
+    this.title = document.createElement('span');
     var icon_e = document.createElement('img');
 
     close.className = 'close';
     close.onclick = function(e) {that.close(); e.stopPropagation()};
 
-    $(title_e).text(title);
+    this.setTitle(title);
+
     icon_e.setAttribute('src', icon);
 
     if (resizeable) {
-        title_e.classList.add('twoButtons');
+        this.title.classList.add('twoButtons');
 
         var maximize = document.createElement('button');
 
@@ -77,7 +78,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     }
 
     decorator.appendChild(close);
-    decorator.appendChild(title_e);
+    decorator.appendChild(this.title);
     decorator.appendChild(icon_e);
 
     this.view.className = 'view';
@@ -128,6 +129,10 @@ RWWM.Window.prototype.setStatus = function(status) {
 
 RWWM.Window.prototype.setStatusLoading = function() {
     this.setStatus('<img src="pics/loading.gif" /> Loading')
+};
+
+RWWM.Window.prototype.setTitle = function(title) {
+    $(this.title).text(title);
 };
 
 RWWM.Window.prototype.close = function() {
