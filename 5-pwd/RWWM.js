@@ -228,7 +228,7 @@ RWWM.launcher = {
     add: function(name, icon, Constructor, kwargs) {
         kwargs = kwargs || {};
 
-        var button = document.createElement('button');
+        var button = document.createElement('div');
         var icon_e = document.createElement('img');
         icon_e.setAttribute('src', icon);
         icon_e.setAttribute('title', name);
