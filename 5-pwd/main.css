@@ -13,6 +13,8 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
+  #RWWM :focus {
+    outline: none; }
   #RWWM .launcher {
     position: fixed;
     top: 0;
@@ -37,6 +39,8 @@
     #RWWM .launcher div:hover {
       background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%); }
   #RWWM .window {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     position: fixed;
     background: #3c3b37;
     border: 1px solid #21201c;
@@ -59,11 +63,26 @@
         padding: 0;
         width: 20px;
         height: 20px;
-        background: linear-gradient(to bottom, #f78b6a 0%, #df4d1a 50%);
+        color: #000;
         border: 1px solid #21201c;
         border-radius: 20px; }
-      #RWWM .window .decorator button:hover {
+      #RWWM .window .decorator .close:before {
+        content: '\2715'; }
+      #RWWM .window .decorator .close {
+        background: linear-gradient(to bottom, #f78b6a 0%, #df4d1a 50%); }
+      #RWWM .window .decorator .close:hover {
         background: linear-gradient(to bottom, #ff9469 0%, #f78b6a 50%); }
+      #RWWM .window .decorator .maximize:before {
+        content: '\25FB';
+        position: relative;
+        bottom: 1px; }
+      #RWWM .window .decorator .maximize {
+        left: 27px;
+        background: linear-gradient(to bottom, #86857f 0%, #55544f 100%);
+        line-height: 5px;
+        vertical-align: top; }
+      #RWWM .window .decorator .maximize:hover {
+        background: linear-gradient(to bottom, #d7d6d0 0%, #9b9a90 50%); }
       #RWWM .window .decorator span {
         position: absolute;
         top: 5px;
@@ -74,6 +93,9 @@
         text-shadow: #000000 -1px -1px 1px;
         text-overflow: ellipsis;
         white-space: nowrap; }
+      #RWWM .window .decorator span.twoButtons {
+        left: 52px;
+        max-width: calc(100% - 77px); }
       #RWWM .window .decorator img {
         position: absolute;
         top: 5px;
@@ -192,3 +214,15 @@
       white-space: nowrap; }
       #RWWM .window .statusbar img {
         margin-bottom: -3px; }
+  #RWWM .window.maximized {
+    top: 0 !important;
+    left: 52px !important;
+    width: calc(100% - 52px) !important;
+    height: 100% !important;
+    border: none;
+    border-radius: 0; }
+    #RWWM .window.maximized .decorator {
+      border: none;
+      border-radius: 0; }
+  #RWWM .animate {
+    transition: top 0.1s ease-in-out, left 0.1s ease-in-out, width 0.1s ease-in-out, height 0.1s ease-in-out; }
