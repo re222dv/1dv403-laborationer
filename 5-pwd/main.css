@@ -21,20 +21,20 @@
     height: 100%;
     background: rgba(65, 65, 65, 0.5);
     border-right: 1px solid #000000; }
-    #RWWM .launcher button {
+    #RWWM .launcher div {
       margin-top: 4px;
       margin-left: 4px;
       padding: 1px;
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 50%);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 4px; }
-      #RWWM .launcher button img {
+      #RWWM .launcher div img {
         width: 40px;
         height: 40px;
         border-radius: 4px; }
-    #RWWM .launcher button:hover {
+    #RWWM .launcher div:hover {
       background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%); }
   #RWWM .window {
     position: fixed;
@@ -51,6 +51,8 @@
       border-top: 1px solid #cdccb6;
       border-radius: 5px 5px 0 0; }
       #RWWM .window .decorator button {
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
         position: absolute;
         top: 5px;
         left: 5px;
@@ -104,40 +106,56 @@
           padding: 0;
           z-index: 1000;
           background: #3c3b37;
+          border: 1px solid #2f2e2b;
           list-style: none;
           white-space: pre; }
           #RWWM .window .menubar > li ul li {
-            padding: 3px 5px;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 0;
+            height: 26px;
             cursor: pointer; }
+            #RWWM .window .menubar > li ul li a {
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              width: 100%;
+              height: 100%;
+              padding: 3px 5px;
+              overflow: hidden; }
             #RWWM .window .menubar > li ul li ul {
               display: none;
               position: absolute;
-              top: 0;
-              left: 100%; }
+              left: 100%;
+              margin-top: -24px; }
+          #RWWM .window .menubar > li ul li + li {
+            margin-top: 3px; }
           #RWWM .window .menubar > li ul li:hover {
             background-color: rgba(221, 70, 20, 0.3); }
             #RWWM .window .menubar > li ul li:hover > ul {
               display: block; }
           #RWWM .window .menubar > li ul .option + ul li {
-            padding-left: 20px; }
+            padding-left: 16px; }
           #RWWM .window .menubar > li ul .option + ul .selected a:before {
             content: '\2B24';
             position: absolute;
-            margin-left: -15px;
+            left: 5px;
             font-size: 0.7em; }
           #RWWM .window .menubar > li ul .sub, #RWWM .window .menubar > li ul .option {
-            padding-right: 10px; }
+            padding-right: 15px; }
           #RWWM .window .menubar > li ul .sub:after, #RWWM .window .menubar > li ul .option:after {
             content: '';
             display: inline-block;
-            position: relative;
-            left: 10px;
+            position: absolute;
+            bottom: 7.5px;
+            right: 5px;
             width: 0;
             height: 0;
             z-index: 2000;
             border-top: 5px solid transparent;
             border-left: 5px solid #ffffff;
             border-bottom: 5px solid transparent; }
+        #RWWM .window .menubar > li a {
+          display: inline-block; }
       #RWWM .window .menubar > li:hover {
         background-color: rgba(221, 70, 20, 0.3);
         border: 1px solid #000000;
