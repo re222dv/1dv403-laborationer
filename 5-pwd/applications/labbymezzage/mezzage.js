@@ -33,12 +33,19 @@ RWWM.applications.labbymezzage.Message.prototype.getDateText = function() {
 RWWM.applications.labbymezzage.LabbyMessage = function() {
     var that = this;
     RWWM.Window.call(this, 400, 500, 'Labby Message', 'applications/labbymezzage/icon.png', {
-        'File': {'Close': this.close}
+        'File': {'Close': this.close},
+        'Edit': {
+            'Update': this.update,
+            'Interval': [{'selected': '10 seconds', 'onchange': this.setInterval}, '10 seconds', '20 seconds', '30 seconds', '1 minute'],
+            'Number of Messages': [{'selected': '10', 'onchange': this.setNumMessages}, '10', '20', '30', '40', '50'],
+            'Alias': this.setupAlias
+        }
     });
 
     this.container.classList.add('mezzage');
 
     this.messages = [];
+    this.alias = 'Rasmus';
 
     this.messageField = document.createElement('div');
     var write = document.createElement('div');
@@ -51,14 +58,14 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     this.textarea.onkeydown = function(event) {
         if (event.which == 13 || event.keyCode == 13) {
             if (!event.shiftKey) {
-                that.postMessage();
+                that.postMessage.call(that);
                 event.preventDefault();
             }
         }
     };
 
     button.innerHTML = 'Send';
-    button.onclick = this.postMessage;
+    button.onclick = function() {that.postMessage.call(that)};
 
     this.view.appendChild(this.messageField);
     write.appendChild(this.textarea);
@@ -70,6 +77,26 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype = Object.create(RWWM.Window.prototype);
 RWWM.applications.labbymezzage.LabbyMessage.prototype.constructor = RWWM.applications.labbymezzage.LabbyMessage;
+
+RWWM.applications.labbymezzage.LabbyMessage.prototype.getAlias = function() {
+    return this.alias;
+};
+
+RWWM.applications.labbymezzage.LabbyMessage.prototype.setupAlias = function() {
+    this.alias = prompt('Alias', this.alias);
+};
+
+RWWM.applications.labbymezzage.LabbyMessage.prototype.setInterval = function() {
+    //TODO
+};
+
+RWWM.applications.labbymezzage.LabbyMessage.prototype.setNumMessages = function() {
+    //TODO
+};
+
+RWWM.applications.labbymezzage.LabbyMessage.prototype.update = function() {
+    //TODO
+};
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.updateCounter = function() {
     this.setStatus('Number of messages: ' + this.messages.length);
@@ -118,7 +145,7 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.redrawMessages = function(
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.postMessage = function() {
-    var message = new RWWM.applications.labbymezzage.Message('Rasmus', this.textarea.value, new Date());
+    var message = new RWWM.applications.labbymezzage.Message(this.getAlias(), this.textarea.value, new Date());
     this.messages.push(message);
 
     this.showMessage(message);
