@@ -148,7 +148,7 @@
               display: none;
               position: absolute;
               left: 100%;
-              margin-top: -24px; }
+              margin-top: -30px; }
           #RWWM .window .menubar > li ul li + li {
             margin-top: 3px; }
           #RWWM .window .menubar > li ul li:hover {
@@ -168,8 +168,8 @@
             content: '';
             display: inline-block;
             position: absolute;
-            bottom: 7.5px;
             right: 5px;
+            margin-top: 5px;
             width: 0;
             height: 0;
             z-index: 2000;
