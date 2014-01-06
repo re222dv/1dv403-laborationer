@@ -9,7 +9,7 @@ RWWM.windows = {
     left: 53,
 
     getTop: function(height) {
-        height += 73;
+        height += 75;
 
         if (this.top + height > innerHeight) {
             this.top = 1;
@@ -21,7 +21,7 @@ RWWM.windows = {
     },
 
     getLeft: function(width) {
-        width += 4;
+        width += 8;
 
         if (this.left + width > innerWidth) {
             this.left = 53;
@@ -101,8 +101,8 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 };
 
 RWWM.Window.prototype.setSize = function(width, height) {
-    width += 4;
-    height += 73;
+    width += 8;
+    height += 75;
 
     var top = parseInt(this.container.style.top);
     var left = parseInt(this.container.style.left);
