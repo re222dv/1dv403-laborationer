@@ -152,14 +152,14 @@ RWWM.Window.prototype.maximize = function() {
     if (this.resizeable) {
         var that = this;
 
-        if (this.onmaximize) {
-            this.onmaximize();
-        }
-
         this.container.classList.add('animate');
         this.container.classList.toggle('maximized');
         window.setTimeout(function() {
             that.container.classList.remove('animate');
+
+            if (that.onresize) {
+                that.onresize();
+            }
         }, 100);
     }
 };
