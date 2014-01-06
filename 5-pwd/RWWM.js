@@ -11,7 +11,7 @@ RWWM.windows = {
     getTop: function(height) {
         height += 75;
 
-        if (this.top + height > innerHeight) {
+        if (this.top + height > $(RWWM.root).height()) {
             this.top = 1;
         }
 
@@ -23,7 +23,7 @@ RWWM.windows = {
     getLeft: function(width) {
         width += 8;
 
-        if (this.left + width > innerWidth) {
+        if (this.left + width > $(RWWM.root).width()) {
             this.left = 53;
         }
 
@@ -107,14 +107,14 @@ RWWM.Window.prototype.setSize = function(width, height) {
     var top = parseInt(this.container.style.top);
     var left = parseInt(this.container.style.left);
 
-    if (top + height > innerHeight) {
-        top = top - ((top + height) - innerHeight);
+    if (top + height > $(RWWM.root).height()) {
+        top = top - ((top + height) - $(RWWM.root).height());
         top = top < 0 ? 0 : top;
         this.container.style.top = top + 'px'
     }
 
-    if (left + width > innerWidth) {
-        left = left - ((left + width) - innerWidth);
+    if (left + width > $(RWWM.root).width()) {
+        left = left - ((left + width) - $(RWWM.root).width());
         left = left < 0 ? 0 : left;
         this.container.style.left = left + 'px';
     }
@@ -273,6 +273,19 @@ RWWM.launcher = {
             new Constructor(kwargs);
         };
         this.launcher.appendChild(button);
+    }
+};
+
+RWWM.setSize = function(width, height) {
+    RWWM.root.style.width = width + 'px';
+    RWWM.root.style.height = height + 'px';
+
+    if (height < $(RWWM.root.parentNode).height()) {
+        RWWM.root.style.top = ($(RWWM.root.parentNode).height() - height) / 2 + 'px';
+    }
+
+    if (width < $(RWWM.root.parentNode).width()) {
+        RWWM.root.style.left = ($(RWWM.root.parentNode).width() - width) / 2 + 'px';
     }
 };
 
