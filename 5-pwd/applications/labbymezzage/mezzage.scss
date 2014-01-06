@@ -1,0 +1,80 @@
+.window.mezzage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px;
+    padding: 10px;
+
+    width: 440px;
+    height: 440px;
+
+    background-color: #ffffff;
+
+    .messages {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+
+        width: 440px;
+        height: 310px;
+
+        overflow: auto;
+
+        .message {
+            margin: 10px;
+            padding: 10px;
+            width: 400px;
+
+            background-color: lightblue;
+
+            p {
+                margin: 0;
+
+                white-space: pre-wrap;
+            }
+
+            .close {
+                display: block;
+
+                margin-top: -10px;
+                margin-left: -5px;
+
+                height: 10px;
+
+                color: red;
+
+                cursor: pointer;
+            }
+
+            .date {
+                margin-top: -5px;
+                margin-left: 50px;
+                margin-right: -5px;
+
+                color: gray;
+                text-align: right;
+
+                cursor: pointer;
+            }
+        }
+    }
+
+    .counter {
+        position: absolute;
+        left: 10px;
+        bottom: 120px;
+    }
+
+    .write {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+
+        height: 110px;
+
+        textarea {
+            width: 435px;
+            height: 80px;
+        }
+    }
+}
