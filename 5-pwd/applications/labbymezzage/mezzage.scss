@@ -1,57 +1,52 @@
-.window.mezzage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 20px;
-    padding: 10px;
-
-    width: 440px;
-    height: 440px;
-
-    background-color: #ffffff;
+.window.mezzage .view {
 
     .messages {
-        position: absolute;
-        top: 10px;
-        left: 10px;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        margin: 5px;
 
-        width: 440px;
-        height: 310px;
+        height: calc(100% - 100px);
 
         overflow: auto;
 
+        background-color: #cdcccb;
+        border: 1px solid #91908f;
+        border-radius: 2px;
+
         .message {
+            position: relative;
             margin: 10px;
             padding: 10px;
-            width: 400px;
 
-            background-color: lightblue;
+            background-color: darkgray;
+            border: 1px solid #91908f;
+            border-radius: 2px;
+
+            .writer {
+                position: relative;
+                right: 5px;
+                bottom: 8px;
+
+                color: #333;
+            }
 
             p {
                 margin: 0;
+                margin-top: -8px;
+                margin-bottom: 10px;
+
+                width: 100%;
 
                 white-space: pre-wrap;
-            }
-
-            .close {
-                display: block;
-
-                margin-top: -10px;
-                margin-left: -5px;
-
-                height: 10px;
-
-                color: red;
-
-                cursor: pointer;
+                word-wrap: break-word;
             }
 
             .date {
-                margin-top: -5px;
-                margin-left: 50px;
-                margin-right: -5px;
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
 
-                color: gray;
+                color: #333;
                 text-align: right;
 
                 cursor: pointer;
@@ -59,21 +54,39 @@
         }
     }
 
-    .counter {
-        position: absolute;
-        left: 10px;
-        bottom: 120px;
-    }
-
     .write {
         position: absolute;
-        left: 10px;
-        bottom: 10px;
+        left: 5px;
+        bottom: 5px;
 
-        height: 110px;
+        width: calc(100% - 5px);
+        height: 80px;
 
         textarea {
-            width: 435px;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 5px;
+
+            width: calc(100% - 60px);
+            height: 80px;
+
+            background-color: #cdcccb;
+            border: 1px solid #91908f;
+            border-radius: 2px;
+
+            resize: none;
+        }
+
+        button {
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+            position: absolute;
+            right: 5px;
+            margin: 0;
+
+            width: 50px;
             height: 80px;
         }
     }

@@ -41,15 +41,11 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     this.messages = [];
 
     this.messageField = document.createElement('div');
-    this.counter = document.createElement('span');
     var write = document.createElement('div');
     this.textarea = document.createElement('textarea');
     var button = document.createElement('button');
 
     this.messageField.className = 'messages';
-
-    this.counter.className = 'counter';
-    this.updateCounter();
 
     write.className = 'write';
     this.textarea.onkeydown = function(event) {
@@ -65,24 +61,35 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     button.onclick = this.postMessage;
 
     this.view.appendChild(this.messageField);
-    this.view.appendChild(this.counter);
     write.appendChild(this.textarea);
     write.appendChild(button);
     this.view.appendChild(write);
+
+    this.updateCounter();
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype = Object.create(RWWM.Window.prototype);
 RWWM.applications.labbymezzage.LabbyMessage.prototype.constructor = RWWM.applications.labbymezzage.LabbyMessage;
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.updateCounter = function() {
-    this.counter.innerHTML = 'Number of messages: ' + this.messages.length;
+    this.setStatus('Number of messages: ' + this.messages.length);
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.showMessage = function(message) {
     var element = document.createElement('div');
     element.className = 'message';
 
-    var date = document.createElement('p');
+    var writer = document.createElement('span');
+    writer.className = 'writer';
+    $(writer).text(message.getWriter());
+    element.appendChild(writer);
+
+    var text = document.createElement('p');
+    text.className = 'text';
+    $(text).text(message.getHtmlText());
+    element.appendChild(text);
+
+    var date = document.createElement('span');
     date.className = 'date';
     date.innerHTML = message.getDateText();
     date.onclick = function() {
@@ -94,11 +101,6 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.showMessage = function(mes
         alert('Inlägget skapades den ' + day + ' ' + month + ' ' + year + ' klockan ' + message.getDateText());
     };
     element.appendChild(date);
-
-    var text = document.createElement('p');
-    text.className = 'text';
-    $(text).text(message.getHtmlText());
-    element.appendChild(text);
 
     this.messageField.appendChild(element);
 
@@ -116,7 +118,7 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.redrawMessages = function(
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.postMessage = function() {
-    var message = new RWWM.applications.labbymezzage.Message('', this.textarea.value, new Date());
+    var message = new RWWM.applications.labbymezzage.Message('Rasmus', this.textarea.value, new Date());
     this.messages.push(message);
 
     this.showMessage(message);
