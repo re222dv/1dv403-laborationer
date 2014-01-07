@@ -220,6 +220,10 @@ RWWM.Window.prototype.resize = function(event) {
 
     this.container.style.width = width + 'px';
     this.container.style.height = height + 'px';
+
+    if (this.onresize) {
+        this.onresize();
+    }
 };
 
 RWWM.Window.prototype.focus = function() {
