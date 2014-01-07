@@ -73,6 +73,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
     close.className = 'close';
     close.onclick = function(e) {that.close(); e.stopPropagation()};
+    close.onmousedown = function(e) {e.stopPropagation()};
 
     this.setTitle(title);
 
@@ -86,6 +87,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
         maximize.className = 'maximize';
         maximize.onclick = function(e) {that.maximize(); e.stopPropagation()};
+        maximize.onmousedown = function(e) {e.stopPropagation()};
 
         decorator.appendChild(maximize);
 
