@@ -122,7 +122,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
     RWWM.windows.open.push(this);
     this.container.style.zIndex = RWWM.windows.open.length;
-    this.container.addEventListener('click', function() {return that.focus()}, true);
+    this.container.addEventListener('mousedown', function() {return that.focus()}, true);
 };
 
 RWWM.Window.prototype.setSize = function(width, height) {
