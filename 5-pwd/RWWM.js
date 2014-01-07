@@ -55,7 +55,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     this.setSize(width, height);
 
     decorator.className = 'decorator';
-    decorator.onmousedown = function() {
+    decorator.onmousedown = function(event) {
         var y = event.clientY - that.container.offsetTop;
         var x = event.clientX - that.container.offsetLeft;
 
