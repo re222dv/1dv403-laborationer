@@ -55,6 +55,18 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     this.setSize(width, height);
 
     decorator.className = 'decorator';
+    decorator.onmousedown = function() {
+        var y = event.clientY - that.container.offsetTop;
+        var x = event.clientX - that.container.offsetLeft;
+
+        document.body.onmousemove = function(event) {
+            that.move.call(that, event, y, x);
+        };
+    };
+    document.body.addEventListener('mouseup', function() {
+        document.body.onmousemove = null;
+    }, true);
+
     var close = document.createElement('button');
     this.title = document.createElement('span');
     var icon_e = document.createElement('img');
@@ -115,7 +127,7 @@ RWWM.Window.prototype.setSize = function(width, height) {
 
     if (left + width > $(RWWM.root).width()) {
         left = left - ((left + width) - $(RWWM.root).width());
-        left = left < 0 ? 0 : left;
+        left = left < 53 ? 53 : left;
         this.container.style.left = left + 'px';
     }
 
@@ -162,6 +174,28 @@ RWWM.Window.prototype.maximize = function() {
             }
         }, 100);
     }
+};
+
+RWWM.Window.prototype.move = function(event, y, x) {
+    var top = event.clientY - y;
+    var left = event.clientX - x;
+
+    var width = $(this.container).width();
+    var height = $(this.container).height();
+
+    if (top + height > $(RWWM.root).height()) {
+        top = top - ((top + height) - $(RWWM.root).height());
+    }
+
+    if (left + width > $(RWWM.root).width()) {
+        left = left - ((left + width) - $(RWWM.root).width());
+    }
+
+    top = top < 0 ? 0 : top;
+    left = left < 53 ? 53 : left;
+
+    this.container.style.top = top + 'px';
+    this.container.style.left = left + 'px';
 };
 
 RWWM.Window.prototype.focus = function() {
