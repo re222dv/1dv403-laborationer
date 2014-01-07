@@ -79,6 +79,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     icon_e.setAttribute('src', icon);
 
     if (resizeable) {
+        this.container.classList.add('resizeable');
         this.title.classList.add('twoButtons');
 
         var maximize = document.createElement('button');
@@ -87,6 +88,16 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
         maximize.onclick = function(e) {that.maximize(); e.stopPropagation()};
 
         decorator.appendChild(maximize);
+
+        var handle = document.createElement('div');
+        handle.className = 'handle';
+        handle.onmousedown = function() {
+            document.body.onmousemove = function(event) {
+                that.resize.call(that, event);
+            };
+            return false;
+        };
+        this.container.appendChild(handle);
     }
 
     decorator.appendChild(close);
@@ -196,6 +207,17 @@ RWWM.Window.prototype.move = function(event, y, x) {
 
     this.container.style.top = top + 'px';
     this.container.style.left = left + 'px';
+};
+
+RWWM.Window.prototype.resize = function(event) {
+    var width = event.clientX - this.container.offsetLeft;
+    var height = event.clientY - this.container.offsetTop;
+
+    width = width < 200 ? 200 : width;
+    height = height < 200 ? 200 : height;
+
+    this.container.style.width = width + 'px';
+    this.container.style.height = height + 'px';
 };
 
 RWWM.Window.prototype.focus = function() {
