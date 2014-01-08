@@ -188,11 +188,24 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.redrawMessages = function(
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.postMessage = function() {
-    var message = new RWWM.applications.labbymezzage.Message(this.getAlias(), this.textarea.value, new Date());
-    this.messages.push(message);
+    var that = this;
 
-    this.showMessage(message);
-    this.textarea.value = '';
+    var text = that.textarea.value;
+    that.textarea.value = '';
+
+    var timeout = window.setTimeout(function() {
+        that.setStatusLoading();
+
+        var message = new RWWM.applications.labbymezzage.Message(that.getAlias(), text, new Date());
+        that.messages.push(message);
+        that.showMessage(message);
+    }, 100);
+
+    $.post('http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php',
+           {username: this.getAlias(), text: text}, function() {
+        window.clearTimeout(timeout);
+        that.update();
+    });
 };
 
 RWWM.launcher.add('Labby Mezzage', 'applications/labbymezzage/icon.png', RWWM.applications.labbymezzage.LabbyMessage);
