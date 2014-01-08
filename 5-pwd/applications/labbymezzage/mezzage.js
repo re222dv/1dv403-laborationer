@@ -69,12 +69,16 @@ RWWM.applications.labbymezzage.Message.prototype.getDateText = function() {
 
 RWWM.applications.labbymezzage.LabbyMessage = function() {
     var that = this;
+
+    var interval = window.localStorage.getItem('interval') || '10 seconds';
+    this.numMessages = window.localStorage.getItem('numMessages') || '10';
+
     RWWM.Window.call(this, 400, 500, 'Labby Message', 'applications/labbymezzage/icon.png', {
         'File': {'Close': this.close},
         'Edit': {
             'Update': this.update,
-            'Interval': [{'selected': '10 seconds', 'onchange': this.setInterval}, '10 seconds', '20 seconds', '30 seconds', '1 minute'],
-            'Number of Messages': [{'selected': '10', 'onchange': this.setNumMessages}, '10', '30', '50', '100'],
+            'Interval': [{'selected': interval, 'onchange': this.setInterval}, '10 seconds', '20 seconds', '30 seconds', '1 minute'],
+            'Number of Messages': [{'selected': this.numMessages, 'onchange': this.setNumMessages}, '10', '30', '50', '100'],
             'Alias': this.setupAlias
         }
     });
@@ -82,7 +86,7 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     this.container.classList.add('mezzage');
 
     this.messages = [];
-    this.alias = 'Rasmus';
+    this.alias = window.localStorage.getItem('alias') || 'Anonymous';
 
     this.messageField = document.createElement('div');
     var write = document.createElement('div');
@@ -109,8 +113,7 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     write.appendChild(button);
     this.view.appendChild(write);
 
-    this.setInterval('10 seconds');
-    this.setNumMessages('10');
+    this.setInterval(interval);
     this.update();
 };
 
@@ -123,10 +126,13 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.getAlias = function() {
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.setupAlias = function() {
     this.alias = prompt('Alias', this.alias);
+    window.localStorage.setItem('alias', this.alias);
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.setInterval = function(interval) {
     var that = this;
+
+    window.localStorage.setItem('interval', interval);
 
     if (this.interval) {
         window.clearInterval(this.interval);
@@ -153,6 +159,7 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.setInterval = function(int
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.setNumMessages = function(numMessages) {
+    window.localStorage.setItem('numMessages', numMessages);
     this.numMessages = numMessages;
     this.update();
 };
