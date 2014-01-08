@@ -24,10 +24,47 @@ RWWM.applications.labbymezzage.Message.prototype.getHtmlText = function() {
 };
 
 RWWM.applications.labbymezzage.Message.prototype.getDateText = function() {
-    var hours = ("0" + this.getDate().getHours()).slice(-2);
-    var minutes = ("0" + this.getDate().getMinutes()).slice(-2);
-    var seconds = ("0" + this.getDate().getSeconds()).slice(-2);
-    return hours + ':' + minutes + ':' + seconds;
+    // Idea and example from http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
+
+    var seconds = Math.floor((new Date() - this.getDate()) / 1000);
+    var text = 'About {0} ago';
+
+    var interval = Math.floor(seconds / 31536000); // Seconds per year
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' year');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' years');
+    }
+
+    interval = Math.floor(seconds / 2592000);// Seconds per month
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' month');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' months');
+    }
+
+    interval = Math.floor(seconds / 86400);// Seconds per day
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' day');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' days');
+    }
+
+    interval = Math.floor(seconds / 3600);// Seconds per hour
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' hour');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' hours');
+    }
+
+    interval = Math.floor(seconds / 60);// Seconds per minute
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' minute');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' minutes');
+    }
+
+    return text.replace('{0}', Math.floor(seconds) + ' seconds');
 };
 
 RWWM.applications.labbymezzage.LabbyMessage = function() {
