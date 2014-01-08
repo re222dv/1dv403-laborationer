@@ -190,6 +190,8 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.update = function() {
         that.setStatus('Last updated ' + ('00' + now.getHours()).slice(-2) + ':' +
                                          ('00' + now.getMinutes()).slice(-2) + ':' +
                                          ('00' + now.getSeconds()).slice(-2));
+
+        $(that.messageField).animate({scrollTop: parseInt(that.messageField.scrollHeight)}, 300);
     }, 'xml');
 };
 
@@ -244,6 +246,8 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.postMessage = function() {
         var message = new RWWM.applications.labbymezzage.Message(that.getAlias(), text, new Date());
         that.messages.push(message);
         that.showMessage(message);
+
+        $(that.messageField).animate({scrollTop: parseInt(that.messageField.scrollHeight)}, 300);
     }, 100);
 
     $.post('http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php',
