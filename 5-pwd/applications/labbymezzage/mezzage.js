@@ -204,12 +204,13 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.showMessage = function(mes
     date.className = 'date';
     date.innerHTML = message.getDateText();
     date.onclick = function() {
-        var months = [ "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September",
-            "Oktober", "November", "December" ];
         var day = message.getDate().getDate();
-        var month = months[message.getDate().getMonth()];
+        var month = message.getDate().getMonth() + 1;
         var year = message.getDate().getFullYear();
-        alert('Inlägget skapades den ' + day + ' ' + month + ' ' + year + ' klockan ' + message.getDateText());
+        alert('Posted the ' + day + '/' + month + '-' + year + ' at ' +
+            ('00' + message.getDate().getHours()).slice(-2) + ':' +
+            ('00' + message.getDate().getMinutes()).slice(-2) + ':' +
+            ('00' + message.getDate().getSeconds()).slice(-2));
     };
     element.appendChild(date);
 
