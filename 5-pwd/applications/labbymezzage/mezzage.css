@@ -33,6 +33,8 @@
       color: #333;
       text-align: right;
       cursor: pointer; }
+    .window.mezzage .view .messages .message .date:hover {
+      text-decoration: underline; }
 .window.mezzage .view .write {
   position: absolute;
   left: 5px;
