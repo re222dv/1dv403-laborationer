@@ -18,7 +18,17 @@ RWWM.launcher = {
         button.appendChild(icon_e);
         button.onclick = function(event) {
             if (event.target === this.firstChild) {
-                new Constructor();
+                var item = RWWM.launcher.items[name];
+
+                if (item.windows.length < 1) {
+                    new Constructor();
+                } else {
+                    if (item.last === RWWM.windows.open[RWWM.windows.open.length-1]) {
+                        new Constructor();
+                    } else {
+                        item.last.focus();
+                    }
+                }
             }
         };
 
@@ -36,7 +46,9 @@ RWWM.launcher = {
 
         this.items[name] = {
             button: button,
+            Constructor: Constructor,
             dots: dots,
+            last: null,
             tooltip: ul,
             windows: []
         };
@@ -52,7 +64,7 @@ RWWM.launcher = {
         var li = document.createElement('li');
         li.innerHTML = name;
         li.onclick = function() {
-            item.button.onclick({target: item.button.firstChild});
+            new item.Constructor();
         };
         item.tooltip.appendChild(li);
 
@@ -227,6 +239,7 @@ RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
     RWWM.root.appendChild(this.container);
 
     if (RWWM.launcher.items[name]) {
+        RWWM.launcher.items[name].last = this;
         RWWM.launcher.items[name].windows.push(this);
 
         RWWM.launcher.drawTooltip(name);
@@ -362,6 +375,10 @@ RWWM.Window.prototype.resize = function(event) {
 RWWM.Window.prototype.focus = function() {
     this.unminimize();
 
+    if (RWWM.launcher.items[this.name] && RWWM.launcher.items[this.name].last) {
+        RWWM.launcher.items[this.name].last = this;
+    }
+
     var index = RWWM.windows.open.indexOf(this);
 
     if (index != RWWM.windows.open.length - 1) {
@@ -377,6 +394,7 @@ RWWM.Window.prototype.focus = function() {
 
         return false;
     }
+
     return true;
 };
 
