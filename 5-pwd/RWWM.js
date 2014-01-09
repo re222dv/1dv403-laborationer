@@ -389,9 +389,10 @@ RWWM.launcher = {
         if (RWWM.launcher.items[name].windows.length > 0) {
             item.tooltip.appendChild(document.createElement('hr'));
 
-            RWWM.launcher.items[name].windows.forEach(function(row) {
+            RWWM.launcher.items[name].windows.forEach(function(window) {
                 var li = document.createElement('li');
-                $(li).text(row.title);
+                $(li).text(window.title);
+                li.onclick = function() {window.focus.call(window)};
                 item.tooltip.appendChild(li);
             });
         }
