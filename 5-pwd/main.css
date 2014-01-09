@@ -74,6 +74,13 @@ body {
             border-radius: 5px;
             cursor: pointer;
             overflow: hidden; }
+          #RWWM .launcher > div div ul li:first-child:after {
+            content: '+';
+            position: absolute;
+            top: 7px;
+            right: 15px;
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5); }
           #RWWM .launcher > div div ul li:hover {
             background-color: rgba(255, 255, 255, 0.2); }
           #RWWM .launcher > div div ul hr {

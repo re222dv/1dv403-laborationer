@@ -106,6 +106,16 @@ body {
                         overflow: hidden;
                     }
 
+                    li:first-child:after {
+                        content: '+';
+                        position: absolute;
+                        top: 7px;
+                        right: 15px;
+
+                        -webkit-transform: scale(1.5);
+                        transform: scale(1.5);
+                    }
+
                     li:hover {
                         background-color: rgba(255, 255, 255, 0.2);
                     }
