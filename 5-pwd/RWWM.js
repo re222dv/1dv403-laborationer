@@ -392,7 +392,18 @@ RWWM.launcher = {
             RWWM.launcher.items[name].windows.forEach(function(window) {
                 var li = document.createElement('li');
                 $(li).text(window.title);
-                li.onclick = function() {window.focus.call(window)};
+                li.onclick = function() {
+                    window.focus.call(window)
+                    this.onmouseout();
+                };
+                li.onmouseover = function() {
+                    window.container.classList.add('show');
+                    $('.window').addClass('fade');
+                };
+                li.onmouseout = function() {
+                    $('.fade').removeClass('fade');
+                    window.container.classList.remove('show');
+                };
                 item.tooltip.appendChild(li);
             });
         }

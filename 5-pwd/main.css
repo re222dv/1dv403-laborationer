@@ -102,7 +102,8 @@ body {
     position: absolute;
     background: #3c3b37;
     border: 1px solid #21201c;
-    border-radius: 5px 5px 0 0; }
+    border-radius: 5px 5px 0 0;
+    transition: background-color 0.5s, border-color 0.5s; }
     #RWWM .window .decorator {
       position: absolute;
       top: 0;
@@ -274,6 +275,8 @@ body {
       white-space: nowrap; }
       #RWWM .window .statusbar img {
         margin-bottom: -3px; }
+    #RWWM .window .decorator, #RWWM .window .menubar, #RWWM .window .view, #RWWM .window .statusbar, #RWWM .window .handle {
+      transition: opacity 0.5s; }
   #RWWM .window.maximized {
     top: 0 !important;
     left: 52px !important;
@@ -299,5 +302,10 @@ body {
     cursor: se-resize;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg); }
+  #RWWM .window.fade:not(.show) {
+    background-color: transparent;
+    border-color: #ffffff; }
+    #RWWM .window.fade:not(.show) .decorator, #RWWM .window.fade:not(.show) .menubar, #RWWM .window.fade:not(.show) .view, #RWWM .window.fade:not(.show) .statusbar, #RWWM .window.fade:not(.show) .handle {
+      opacity: 0.1; }
   #RWWM .animate {
     transition: top 0.1s ease-in-out, left 0.1s ease-in-out, width 0.1s ease-in-out, height 0.1s ease-in-out; }

@@ -154,6 +154,8 @@ body {
         border: 1px solid #21201c;
         border-radius: 5px 5px 0 0;
 
+        transition: background-color 0.5s, border-color 0.5s;
+
         .decorator {
             position: absolute;
             top: 0;
@@ -425,6 +427,10 @@ body {
                 margin-bottom: -3px;
             }
         }
+
+        .decorator, .menubar, .view, .statusbar, .handle {
+            transition: opacity 0.5s;
+        }
     }
 
     .window.maximized {
@@ -463,6 +469,15 @@ body {
 
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
+    }
+
+    .window.fade:not(.show) {
+        background-color: transparent;
+        border-color: #ffffff;
+
+        .decorator, .menubar, .view, .statusbar, .handle {
+            opacity: 0.1;
+        }
     }
 
     .animate {
