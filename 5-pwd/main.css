@@ -30,23 +30,23 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 52px;
+    width: 59px;
     height: 100%;
     z-index: 999999;
     background: rgba(65, 65, 65, 0.5);
     border-right: 1px solid #000000; }
     #RWWM .launcher > div {
-      margin-top: 4px;
-      margin-left: 4px;
+      margin-top: 6px;
+      margin-left: 6px;
       padding: 1px;
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 50%);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 4px; }
       #RWWM .launcher > div img {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         border-radius: 4px; }
       #RWWM .launcher > div .dots {
         position: absolute;
@@ -55,25 +55,25 @@ body {
         #RWWM .launcher > div .dots p:before {
           content: '';
           display: block;
-          margin-top: 6px;
+          margin-top: 8px;
           width: 0;
           height: 0;
-          border-top: 3px solid transparent;
-          border-left: 3px solid #fff;
-          border-bottom: 3px solid transparent; }
+          border-top: 4px solid transparent;
+          border-left: 4px solid #fff;
+          border-bottom: 4px solid transparent; }
         #RWWM .launcher > div .dots p {
           margin: 0;
           padding: 0;
           width: 0;
           height: 0; }
       #RWWM .launcher > div .dots.one {
-        margin-top: -33px;
+        margin-top: -38px;
         height: 3px; }
       #RWWM .launcher > div .dots.two {
-        margin-top: -36px;
+        margin-top: -42px;
         height: 6px; }
       #RWWM .launcher > div .dots.three {
-        margin-top: -39px;
+        margin-top: -46px;
         height: 9px; }
       #RWWM .launcher > div .tooltip {
         display: none;
@@ -319,7 +319,7 @@ body {
       transition: opacity 0.5s; }
   #RWWM .window.maximized {
     top: 0 !important;
-    left: 52px !important;
+    left: 59px !important;
     width: calc(100% - 52px) !important;
     height: 100% !important;
     border: none;

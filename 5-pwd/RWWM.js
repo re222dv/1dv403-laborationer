@@ -2,11 +2,107 @@
 
 var RWWM = RWWM || {};
 
+RWWM.launcher = {
+    launcher: document.createElement('div'),
+    items: {},
+    width: 59,
+
+    init: function() {
+        this.launcher.className = 'launcher';
+        RWWM.root.appendChild(this.launcher);
+    },
+    add: function(name, icon, Constructor) {
+        var button = document.createElement('div');
+        var icon_e = document.createElement('img');
+        icon_e.setAttribute('src', icon);
+        button.appendChild(icon_e);
+        button.onclick = function(event) {
+            if (event.target === this.firstChild) {
+                new Constructor();
+            }
+        };
+
+        var dots = document.createElement('div');
+        dots.className = 'dots';
+        button.appendChild(dots);
+
+        var tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        var ul = document.createElement('ul');
+
+        tooltip.appendChild(ul);
+        button.appendChild(tooltip);
+        this.launcher.appendChild(button);
+
+        this.items[name] = {
+            button: button,
+            dots: dots,
+            tooltip: ul,
+            windows: []
+        };
+
+        this.drawTooltip(name);
+    },
+
+    drawTooltip: function(name) {
+        var item = this.items[name];
+
+        item.tooltip.innerHTML = '';
+
+        var li = document.createElement('li');
+        li.innerHTML = name;
+        li.onclick = function() {
+            item.button.onclick({target: item.button.firstChild});
+        };
+        item.tooltip.appendChild(li);
+
+        if (RWWM.launcher.items[name].windows.length > 0) {
+            item.tooltip.appendChild(document.createElement('hr'));
+
+            RWWM.launcher.items[name].windows.forEach(function(window) {
+                var li = document.createElement('li');
+                $(li).text(window.title);
+                li.onclick = function() {
+                    window.focus.call(window);
+                    this.onmouseout();
+                };
+                li.onmouseover = function() {
+                    window.container.classList.add('show');
+                    $('.window').addClass('fade');
+                };
+                li.onmouseout = function() {
+                    $('.fade').removeClass('fade');
+                    window.container.classList.remove('show');
+                };
+                item.tooltip.appendChild(li);
+            });
+
+            switch (RWWM.launcher.items[name].windows.length) {
+                case 1:
+                    item.dots.className = 'dots one';
+                    item.dots.innerHTML = '<p></p>';
+                    break;
+                case 2:
+                    item.dots.className = 'dots two';
+                    item.dots.innerHTML = '<p></p><p></p>';
+                    break;
+                default :
+                    item.dots.className = 'dots three';
+                    item.dots.innerHTML = '<p></p><p></p><p></p>';
+                    break;
+            }
+        } else {
+            item.dots.className = 'dots';
+            item.dots.innerHTML = '';
+        }
+    }
+};
+
 RWWM.windows = {
     open: [],
 
-    top: 1,
-    left: 53,
+    top: 0,
+    left: RWWM.launcher.width,
 
     getTop: function(height) {
         height += 75;
@@ -24,7 +120,7 @@ RWWM.windows = {
         width += 8;
 
         if (this.left + width > $(RWWM.root).width()) {
-            this.left = 53;
+            this.left = RWWM.launcher.width;
         }
 
         this.left += 15;
@@ -156,7 +252,7 @@ RWWM.Window.prototype.setSize = function(width, height) {
 
     if (left + width > $(RWWM.root).width()) {
         left = left - ((left + width) - $(RWWM.root).width());
-        left = left < 53 ? 53 : left;
+        left = left < RWWM.launcher.width ? RWWM.launcher.width : left;
         this.container.style.left = left + 'px';
     }
 
@@ -242,7 +338,7 @@ RWWM.Window.prototype.move = function(event, y, x) {
     }
 
     top = top < 0 ? 0 : top;
-    left = left < 53 ? 53 : left;
+    left = left < RWWM.launcher.width ? RWWM.launcher.width : left;
 
     this.container.style.top = top + 'px';
     this.container.style.left = left + 'px';
@@ -353,101 +449,6 @@ RWWM.Window.prototype.renderMenu = function(menu) {
     this.menubar.innerHTML = '';
 
     this.renderUl(this.menubar, menu);
-};
-
-RWWM.launcher = {
-    launcher: document.createElement('div'),
-    items: {},
-
-    init: function() {
-        this.launcher.className = 'launcher';
-        RWWM.root.appendChild(this.launcher);
-    },
-    add: function(name, icon, Constructor) {
-        var button = document.createElement('div');
-        var icon_e = document.createElement('img');
-        icon_e.setAttribute('src', icon);
-        button.appendChild(icon_e);
-        button.onclick = function(event) {
-            if (event.target === this.firstChild) {
-                new Constructor();
-            }
-        };
-
-        var dots = document.createElement('div');
-        dots.className = 'dots';
-        button.appendChild(dots);
-
-        var tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        var ul = document.createElement('ul');
-
-        tooltip.appendChild(ul);
-        button.appendChild(tooltip);
-        this.launcher.appendChild(button);
-
-        this.items[name] = {
-            button: button,
-            dots: dots,
-            tooltip: ul,
-            windows: []
-        };
-
-        this.drawTooltip(name);
-    },
-
-    drawTooltip: function(name) {
-        var item = this.items[name];
-
-        item.tooltip.innerHTML = '';
-
-        var li = document.createElement('li');
-        li.innerHTML = name;
-        li.onclick = function() {
-            item.button.onclick({target: item.button.firstChild});
-        };
-        item.tooltip.appendChild(li);
-
-        if (RWWM.launcher.items[name].windows.length > 0) {
-            item.tooltip.appendChild(document.createElement('hr'));
-
-            RWWM.launcher.items[name].windows.forEach(function(window) {
-                var li = document.createElement('li');
-                $(li).text(window.title);
-                li.onclick = function() {
-                    window.focus.call(window);
-                    this.onmouseout();
-                };
-                li.onmouseover = function() {
-                    window.container.classList.add('show');
-                    $('.window').addClass('fade');
-                };
-                li.onmouseout = function() {
-                    $('.fade').removeClass('fade');
-                    window.container.classList.remove('show');
-                };
-                item.tooltip.appendChild(li);
-            });
-
-            switch (RWWM.launcher.items[name].windows.length) {
-                case 1:
-                    item.dots.className = 'dots one';
-                    item.dots.innerHTML = '<p></p>';
-                    break;
-                case 2:
-                    item.dots.className = 'dots two';
-                    item.dots.innerHTML = '<p></p><p></p>';
-                    break;
-                default :
-                    item.dots.className = 'dots three';
-                    item.dots.innerHTML = '<p></p><p></p><p></p>';
-                    break;
-            }
-        } else {
-            item.dots.className = 'dots';
-            item.dots.innerHTML = '';
-        }
-    }
 };
 
 RWWM.setSize = function(width, height) {
