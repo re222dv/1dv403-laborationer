@@ -23,7 +23,7 @@ RWWM.launcher = {
                 if (item.windows.length < 1) {
                     new Constructor();
                 } else {
-                    if (item.last === RWWM.windows.open[RWWM.windows.open.length-1]) {
+                    if (item.last === RWWM.windows.open[RWWM.windows.open.length-1] && $(item.last).is(":visible")) {
                         new Constructor();
                     } else {
                         item.last.focus();
