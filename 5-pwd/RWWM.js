@@ -72,6 +72,7 @@ RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
     }, true);
 
     var close = document.createElement('button');
+    var minimize = document.createElement('button');
     this.title_e = document.createElement('span');
     var icon_e = document.createElement('img');
 
@@ -79,13 +80,17 @@ RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
     close.onclick = function(e) {that.close(); e.stopPropagation()};
     close.onmousedown = function(e) {e.stopPropagation()};
 
+    minimize.className = 'minimize';
+    minimize.onclick = function(e) {that.minimize(); e.stopPropagation()};
+    minimize.onmousedown = function(e) {e.stopPropagation()};
+
     this.setTitle(title);
 
     icon_e.setAttribute('src', icon);
 
     if (resizeable) {
         this.container.classList.add('resizeable');
-        this.title_e.classList.add('twoButtons');
+        this.title_e.classList.add('threeButtons');
 
         var maximize = document.createElement('button');
 
@@ -107,6 +112,7 @@ RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
     }
 
     decorator.appendChild(close);
+    decorator.appendChild(minimize);
     decorator.appendChild(this.title_e);
     decorator.appendChild(icon_e);
 
@@ -212,6 +218,14 @@ RWWM.Window.prototype.maximize = function() {
     }
 };
 
+RWWM.Window.prototype.minimize = function() {
+    $(this.container).hide(300);
+};
+
+RWWM.Window.prototype.unminimize = function() {
+    $(this.container).show(300);
+};
+
 RWWM.Window.prototype.move = function(event, y, x) {
     var top = event.clientY - y;
     var left = event.clientX - x;
@@ -250,6 +264,8 @@ RWWM.Window.prototype.resize = function(event) {
 };
 
 RWWM.Window.prototype.focus = function() {
+    this.unminimize();
+
     var index = RWWM.windows.open.indexOf(this);
 
     if (index != RWWM.windows.open.length - 1) {
@@ -393,7 +409,7 @@ RWWM.launcher = {
                 var li = document.createElement('li');
                 $(li).text(window.title);
                 li.onclick = function() {
-                    window.focus.call(window)
+                    window.focus.call(window);
                     this.onmouseout();
                 };
                 li.onmouseover = function() {

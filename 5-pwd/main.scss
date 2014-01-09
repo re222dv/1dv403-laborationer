@@ -192,8 +192,13 @@ body {
                 height: 20px;
 
                 color: #000;
+                background: linear-gradient(to bottom, #86857f 0%, #55544f 100%);
                 border: 1px solid #21201c;
                 border-radius: 20px;
+            }
+
+            button:hover {
+                background: linear-gradient(to bottom, #d7d6d0 0%, #9b9a90 50%);
             }
 
             .close:before {
@@ -208,6 +213,16 @@ body {
                 background: linear-gradient(to bottom, #ff9469 0%, #f78b6a 50%);
             }
 
+            .minimize:before {
+                content: '\2012';
+                position: relative;
+                bottom: 1px;
+            }
+
+            .minimize {
+                left: 27px;
+            }
+
             .maximize:before {
                 content: '\25FB';
                 position: relative;
@@ -215,24 +230,18 @@ body {
             }
 
             .maximize {
-                left: 27px;
-
-                background: linear-gradient(to bottom, #86857f 0%, #55544f 100%);
+                left: 49px;
 
                 line-height: 5px;
                 vertical-align: top;
             }
 
-            .maximize:hover {
-                background: linear-gradient(to bottom, #d7d6d0 0%, #9b9a90 50%);
-            }
-
             span {
                 position: absolute;
                 top: 5px;
-                left: 30px;
+                left: 52px;
 
-                max-width: calc(100% - 55px);
+                max-width: calc(100% - 77px);
                 overflow: hidden;
 
                 color: #ffffff;
@@ -242,10 +251,10 @@ body {
                 white-space: nowrap;
             }
 
-            span.twoButtons {
-                left: 52px;
+            span.threeButtons {
+                left: 74px;
 
-                max-width: calc(100% - 77px);
+                max-width: calc(100% - 99px);
             }
 
             img {

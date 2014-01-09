@@ -130,39 +130,45 @@ body {
         width: 20px;
         height: 20px;
         color: #000;
+        background: linear-gradient(to bottom, #86857f 0%, #55544f 100%);
         border: 1px solid #21201c;
         border-radius: 20px; }
+      #RWWM .window .decorator button:hover {
+        background: linear-gradient(to bottom, #d7d6d0 0%, #9b9a90 50%); }
       #RWWM .window .decorator .close:before {
         content: '\2715'; }
       #RWWM .window .decorator .close {
         background: linear-gradient(to bottom, #f78b6a 0%, #df4d1a 50%); }
       #RWWM .window .decorator .close:hover {
         background: linear-gradient(to bottom, #ff9469 0%, #f78b6a 50%); }
+      #RWWM .window .decorator .minimize:before {
+        content: '\2012';
+        position: relative;
+        bottom: 1px; }
+      #RWWM .window .decorator .minimize {
+        left: 27px; }
       #RWWM .window .decorator .maximize:before {
         content: '\25FB';
         position: relative;
         bottom: 1px; }
       #RWWM .window .decorator .maximize {
-        left: 27px;
-        background: linear-gradient(to bottom, #86857f 0%, #55544f 100%);
+        left: 49px;
         line-height: 5px;
         vertical-align: top; }
-      #RWWM .window .decorator .maximize:hover {
-        background: linear-gradient(to bottom, #d7d6d0 0%, #9b9a90 50%); }
       #RWWM .window .decorator span {
         position: absolute;
         top: 5px;
-        left: 30px;
-        max-width: calc(100% - 55px);
+        left: 52px;
+        max-width: calc(100% - 77px);
         overflow: hidden;
         color: #ffffff;
         cursor: default;
         text-shadow: #000000 -1px -1px 1px;
         text-overflow: ellipsis;
         white-space: nowrap; }
-      #RWWM .window .decorator span.twoButtons {
-        left: 52px;
-        max-width: calc(100% - 77px); }
+      #RWWM .window .decorator span.threeButtons {
+        left: 74px;
+        max-width: calc(100% - 99px); }
       #RWWM .window .decorator img {
         position: absolute;
         top: 5px;
