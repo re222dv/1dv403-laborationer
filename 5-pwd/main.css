@@ -48,14 +48,41 @@ body {
         width: 40px;
         height: 40px;
         border-radius: 4px; }
-      #RWWM .launcher > div div {
+      #RWWM .launcher > div .dots {
+        position: absolute;
+        left: 0;
+        width: 3px; }
+        #RWWM .launcher > div .dots p:before {
+          content: '';
+          display: block;
+          margin-top: 6px;
+          width: 0;
+          height: 0;
+          border-top: 3px solid transparent;
+          border-left: 3px solid #fff;
+          border-bottom: 3px solid transparent; }
+        #RWWM .launcher > div .dots p {
+          margin: 0;
+          padding: 0;
+          width: 0;
+          height: 0; }
+      #RWWM .launcher > div .dots.one {
+        margin-top: -33px;
+        height: 3px; }
+      #RWWM .launcher > div .dots.two {
+        margin-top: -36px;
+        height: 6px; }
+      #RWWM .launcher > div .dots.three {
+        margin-top: -39px;
+        height: 9px; }
+      #RWWM .launcher > div .tooltip {
         display: none;
         position: relative;
         bottom: 44px;
         width: 250px;
         z-index: -1;
         text-align: left; }
-        #RWWM .launcher > div div ul {
+        #RWWM .launcher > div .tooltip ul {
           position: relative;
           top: 2px;
           left: 62px;
@@ -68,27 +95,27 @@ body {
           border-radius: 5px;
           font-weight: bold;
           list-style: none; }
-          #RWWM .launcher > div div ul li {
+          #RWWM .launcher > div .tooltip ul li {
             margin: 1px 4px;
             padding: 2px 4px;
             border-radius: 5px;
             cursor: pointer;
             overflow: hidden; }
-          #RWWM .launcher > div div ul li:first-child:after {
+          #RWWM .launcher > div .tooltip ul li:first-child:after {
             content: '+';
             position: absolute;
             top: 7px;
             right: 15px;
             -webkit-transform: scale(1.5);
             transform: scale(1.5); }
-          #RWWM .launcher > div div ul li:hover {
+          #RWWM .launcher > div .tooltip ul li:hover {
             background-color: rgba(255, 255, 255, 0.2); }
-          #RWWM .launcher > div div ul hr {
+          #RWWM .launcher > div .tooltip ul hr {
             margin: 4px;
             height: 1px;
             background: linear-gradient(to right, transparent 0%, #777777 10%, #777777 90%, transparent 100%);
             border: none; }
-        #RWWM .launcher > div div ul:before {
+        #RWWM .launcher > div .tooltip ul:before {
           content: '';
           display: block;
           position: absolute;
@@ -101,7 +128,7 @@ body {
           border-bottom: 8px solid transparent; }
     #RWWM .launcher > div:hover {
       background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%); }
-      #RWWM .launcher > div:hover div {
+      #RWWM .launcher > div:hover .tooltip {
         display: block; }
   #RWWM .window {
     -moz-box-sizing: border-box;

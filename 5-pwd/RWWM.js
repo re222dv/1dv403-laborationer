@@ -374,7 +374,12 @@ RWWM.launcher = {
             }
         };
 
+        var dots = document.createElement('div');
+        dots.className = 'dots';
+        button.appendChild(dots);
+
         var tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
         var ul = document.createElement('ul');
 
         tooltip.appendChild(ul);
@@ -383,6 +388,7 @@ RWWM.launcher = {
 
         this.items[name] = {
             button: button,
+            dots: dots,
             tooltip: ul,
             windows: []
         };
@@ -422,6 +428,24 @@ RWWM.launcher = {
                 };
                 item.tooltip.appendChild(li);
             });
+
+            switch (RWWM.launcher.items[name].windows.length) {
+                case 1:
+                    item.dots.className = 'dots one';
+                    item.dots.innerHTML = '<p></p>';
+                    break;
+                case 2:
+                    item.dots.className = 'dots two';
+                    item.dots.innerHTML = '<p></p><p></p>';
+                    break;
+                default :
+                    item.dots.className = 'dots three';
+                    item.dots.innerHTML = '<p></p><p></p><p></p>';
+                    break;
+            }
+        } else {
+            item.dots.className = 'dots';
+            item.dots.innerHTML = '';
         }
     }
 };

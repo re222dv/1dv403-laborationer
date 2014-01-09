@@ -70,7 +70,52 @@ body {
                 border-radius: 4px;
             }
 
-            div {
+            .dots {
+                position: absolute;
+                left: 0;
+
+                width: 3px;
+
+                p:before{
+                    content: '';
+                    display: block;
+                    margin-top: 6px;
+
+                    width: 0;
+                    height: 0;
+
+                    border-top: 3px solid transparent;
+                    border-left: 3px solid #fff;
+                    border-bottom: 3px solid transparent;
+                }
+
+                p {
+                    margin: 0;
+                    padding: 0;
+                    width: 0;
+                    height: 0;
+                }
+            }
+
+            .dots.one {
+                margin-top: -33px;
+
+                height: 3px;
+            }
+
+            .dots.two {
+                margin-top: -36px;
+
+                height: 6px;
+            }
+
+            .dots.three {
+                margin-top: -39px;
+
+                height: 9px;
+            }
+
+            .tooltip {
                 display: none;
                 position: relative;
                 bottom: 44px;
@@ -149,7 +194,7 @@ body {
         > div:hover {
             background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%);
 
-            div {
+            .tooltip {
                 display: block;
             }
         }
