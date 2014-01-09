@@ -257,4 +257,10 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.postMessage = function() {
     });
 };
 
+RWWM.applications.labbymezzage.LabbyMessage.prototype.onclose = function() {
+    if (this.interval) {
+        window.clearInterval(this.interval);
+    }
+};
+
 RWWM.launcher.add('Labby Mezzage', 'applications/labbymezzage/icon.png', RWWM.applications.labbymezzage.LabbyMessage);
