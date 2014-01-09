@@ -73,7 +73,7 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     var interval = window.localStorage.getItem('interval') || '10 seconds';
     this.numMessages = window.localStorage.getItem('numMessages') || '10';
 
-    RWWM.Window.call(this, 400, 500, 'Labby Message', 'applications/labbymezzage/icon.png', {
+    RWWM.Window.call(this, 'Labby Mezzage', 400, 500, 'Labby Mezzage', 'applications/labbymezzage/icon.png', {
         'File': {'Close': this.close},
         'Edit': {
             'Update': this.update,

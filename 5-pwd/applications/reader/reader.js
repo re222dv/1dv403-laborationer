@@ -5,7 +5,7 @@ RWWM.applications = RWWM.applications || {};
 RWWM.applications.reader = {};
 
 RWWM.applications.reader.Reader = function() {
-    RWWM.Window.call(this, 400, 500, 'Reader', 'applications/reader/icon.png', {
+    RWWM.Window.call(this, 'Reader', 400, 500, 'Reader', 'applications/reader/icon.png', {
         'File': {'Close': this.close},
         'Edit': {
             'Update': this.update,

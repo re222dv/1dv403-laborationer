@@ -33,14 +33,18 @@ RWWM.windows = {
     }
 };
 
-RWWM.Window = function(width, height, title, icon, menu, resizeable) {
+RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
     menu = menu || {
         'File': {'Close': this.close}
     };
     resizeable = resizeable !== undefined ? resizeable : true;
 
     var that = this;
+    width += 4;
+    height += 50;
 
+    this.name = name;
+    this.title = title;
     this.resizeable = resizeable;
 
     this.container = document.createElement('div');
@@ -68,7 +72,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     }, true);
 
     var close = document.createElement('button');
-    this.title = document.createElement('span');
+    this.title_e = document.createElement('span');
     var icon_e = document.createElement('img');
 
     close.className = 'close';
@@ -81,7 +85,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
     if (resizeable) {
         this.container.classList.add('resizeable');
-        this.title.classList.add('twoButtons');
+        this.title_e.classList.add('twoButtons');
 
         var maximize = document.createElement('button');
 
@@ -103,7 +107,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     }
 
     decorator.appendChild(close);
-    decorator.appendChild(this.title);
+    decorator.appendChild(this.title_e);
     decorator.appendChild(icon_e);
 
     this.view.className = 'view';
@@ -119,6 +123,12 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     this.container.appendChild(this.statusbar);
 
     RWWM.root.appendChild(this.container);
+
+    if (RWWM.launcher.items[name]) {
+        RWWM.launcher.items[name].windows.push(this);
+
+        RWWM.launcher.drawTooltip(name);
+    }
 
     RWWM.windows.open.push(this);
     this.container.style.zIndex = RWWM.windows.open.length;
@@ -157,7 +167,10 @@ RWWM.Window.prototype.setStatusLoading = function() {
 };
 
 RWWM.Window.prototype.setTitle = function(title) {
-    $(this.title).text(title);
+    this.title = title;
+    $(this.title_e).text(title);
+
+    RWWM.launcher.drawTooltip(this.name);
 };
 
 RWWM.Window.prototype.close = function() {
@@ -168,6 +181,16 @@ RWWM.Window.prototype.close = function() {
     var index = RWWM.windows.open.indexOf(this);
     if (index > -1) {
         RWWM.windows.open.splice(index, 1);
+    }
+
+    if (RWWM.launcher.items[this.name]) {
+        index = RWWM.launcher.items[this.name].windows.indexOf(this);
+
+        if (index > -1) {
+            RWWM.launcher.items[this.name].windows.splice(index, 1);
+        }
+
+        RWWM.launcher.drawTooltip(this.name);
     }
 
     this.container.parentNode.removeChild(this.container);
@@ -318,23 +341,60 @@ RWWM.Window.prototype.renderMenu = function(menu) {
 
 RWWM.launcher = {
     launcher: document.createElement('div'),
+    items: {},
 
     init: function() {
         this.launcher.className = 'launcher';
         RWWM.root.appendChild(this.launcher);
     },
-    add: function(name, icon, Constructor, kwargs) {
-        kwargs = kwargs || {};
-
+    add: function(name, icon, Constructor) {
         var button = document.createElement('div');
         var icon_e = document.createElement('img');
         icon_e.setAttribute('src', icon);
-        icon_e.setAttribute('title', name);
         button.appendChild(icon_e);
-        button.onclick = function() {
-            new Constructor(kwargs);
+        button.onclick = function(event) {
+            if (event.target === this.firstChild) {
+                new Constructor();
+            }
         };
+
+        var tooltip = document.createElement('div');
+        var ul = document.createElement('ul');
+
+        tooltip.appendChild(ul);
+        button.appendChild(tooltip);
         this.launcher.appendChild(button);
+
+        this.items[name] = {
+            button: button,
+            tooltip: ul,
+            windows: []
+        };
+
+        this.drawTooltip(name);
+    },
+
+    drawTooltip: function(name) {
+        var item = this.items[name];
+
+        item.tooltip.innerHTML = '';
+
+        var li = document.createElement('li');
+        li.innerHTML = name;
+        li.onclick = function() {
+            item.button.onclick({target: item.button.firstChild});
+        };
+        item.tooltip.appendChild(li);
+
+        if (RWWM.launcher.items[name].windows.length > 0) {
+            item.tooltip.appendChild(document.createElement('hr'));
+
+            RWWM.launcher.items[name].windows.forEach(function(row) {
+                var li = document.createElement('li');
+                $(li).text(row.title);
+                item.tooltip.appendChild(li);
+            });
+        }
     }
 };
 

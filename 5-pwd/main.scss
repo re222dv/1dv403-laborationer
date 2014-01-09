@@ -23,6 +23,7 @@ body {
     height: 100%;
 
     overflow: hidden;
+    z-index: 0;
 
     background-image: url("pics/background.jpg");
     background-size: cover;
@@ -45,12 +46,13 @@ body {
 
         width: 52px;
         height: 100%;
+        z-index: 999999;
 
         background: rgba(65, 65, 65, 0.5);
 
         border-right: 1px solid #000000;
 
-        div {
+        > div {
             margin-top: 4px;
             margin-left: 4px;
             padding: 1px;
@@ -67,10 +69,79 @@ body {
                 height: 40px;
                 border-radius: 4px;
             }
+
+            div {
+                display: none;
+                position: relative;
+                bottom: 44px;
+
+                width: 250px;
+                z-index: -1;
+
+                text-align: left;
+
+                ul {
+                    position: relative;
+                    top: 2px;
+                    left: 62px;
+                    margin: 0;
+                    padding: 5px;
+
+                    width: 205px;
+
+                    color: #ffffff;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    border: 1px solid #333;
+                    border-radius: 5px;
+
+                    font-weight: bold;
+                    list-style: none;
+
+                    li {
+                        margin: 1px 4px;
+                        padding: 2px 4px;
+
+                        border-radius: 5px;
+                        cursor: pointer;
+                        overflow: hidden;
+                    }
+
+                    li:hover {
+                        background-color: rgba(255, 255, 255, 0.2);
+                    }
+
+                    hr {
+                        margin: 4px;
+                        height: 1px;
+
+                        background: linear-gradient(to right, transparent 0%, #777 10%, #777 90%, transparent 100%);
+                        border: none;
+                    }
+                }
+
+                ul:before{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 8px;
+                    left: -8px;
+
+                    width: 0;
+                    height: 0;
+
+                    border-top: 8px solid transparent;
+                    border-right:8px solid #333;
+                    border-bottom: 8px solid transparent;
+                }
+            }
         }
 
-        div:hover {
+        > div:hover {
             background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%);
+
+            div {
+                display: block;
+            }
         }
     }
 
