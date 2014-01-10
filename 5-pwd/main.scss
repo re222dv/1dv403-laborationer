@@ -185,7 +185,7 @@ body {
                     height: 0;
 
                     border-top: 8px solid transparent;
-                    border-right:8px solid #333;
+                    border-right: 8px solid #333;
                     border-bottom: 8px solid transparent;
                 }
             }
@@ -197,6 +197,21 @@ body {
             .tooltip {
                 display: block;
             }
+        }
+
+        > .focus .focus {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            margin-top: -29px;
+
+            width: 0;
+            height: 0;
+
+            border-top: 4px solid transparent;
+            border-right: 4px solid #fff;
+            border-bottom: 4px solid transparent;
         }
     }
 

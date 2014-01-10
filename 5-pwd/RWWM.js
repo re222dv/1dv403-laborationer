@@ -37,6 +37,10 @@ RWWM.launcher = {
         dots.className = 'dots';
         button.appendChild(dots);
 
+        var focus = document.createElement('span');
+        focus.className = 'focus';
+        button.appendChild(focus);
+
         var tooltip = document.createElement('div');
         tooltip.className = 'tooltip';
         var ul = document.createElement('ul');
@@ -251,6 +255,11 @@ RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
 
     RWWM.windows.open.push(this);
     this.container.style.zIndex = RWWM.windows.open.length;
+    $('.launcher > .focus').removeClass('focus');
+    if (RWWM.launcher.items[this.name] && RWWM.launcher.items[this.name].button) {
+        RWWM.launcher.items[this.name].button.classList.add('focus');
+    }
+
     this.container.addEventListener('mousedown', function() {return that.focus()}, true);
 };
 
@@ -303,6 +312,10 @@ RWWM.Window.prototype.close = function() {
     }
 
     if (RWWM.launcher.items[this.name]) {
+        if (RWWM.launcher.items[this.name].button) {
+            RWWM.launcher.items[this.name].button.classList.remove('focus');
+        }
+
         index = RWWM.launcher.items[this.name].windows.indexOf(this);
 
         if (index > -1) {
@@ -310,6 +323,14 @@ RWWM.Window.prototype.close = function() {
         }
 
         RWWM.launcher.drawTooltip(this.name);
+    }
+
+    if (RWWM.windows.open.length > 0) {
+        var next = RWWM.windows.open[RWWM.windows.open.length - 1];
+
+        if (RWWM.launcher.items[next.name] && RWWM.launcher.items[next.name].button) {
+            RWWM.launcher.items[next.name].button.classList.add('focus');
+        }
     }
 
     this.container.parentNode.removeChild(this.container);
@@ -379,8 +400,15 @@ RWWM.Window.prototype.resize = function(event) {
 RWWM.Window.prototype.focus = function() {
     this.unminimize();
 
-    if (RWWM.launcher.items[this.name] && RWWM.launcher.items[this.name].last) {
-        RWWM.launcher.items[this.name].last = this;
+    $('.launcher > .focus').removeClass('focus');
+
+    if (RWWM.launcher.items[this.name]) {
+        if (RWWM.launcher.items[this.name].button) {
+            RWWM.launcher.items[this.name].button.classList.add('focus');
+        }
+        if (RWWM.launcher.items[this.name].last) {
+            RWWM.launcher.items[this.name].last = this;
+        }
     }
 
     var index = RWWM.windows.open.indexOf(this);
