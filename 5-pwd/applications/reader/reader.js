@@ -89,4 +89,4 @@ RWWM.applications.reader.Reader.prototype.onclose = function() {
     }
 };
 
-RWWM.launcher.add('Reader', 'applications/reader/icon.png', RWWM.applications.reader.Reader);
+RWWM.launcher.add('Reader', 'applications/reader/icon.png', RWWM.applications.reader.Reader, '#a16f39');

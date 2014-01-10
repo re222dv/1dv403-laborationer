@@ -11,7 +11,7 @@ RWWM.launcher = {
         this.launcher.className = 'launcher';
         RWWM.root.appendChild(this.launcher);
     },
-    add: function(name, icon, Constructor) {
+    add: function(name, icon, Constructor, color) {
         var button = document.createElement('div');
         var icon_e = document.createElement('img');
         icon_e.setAttribute('src', icon);
@@ -47,6 +47,7 @@ RWWM.launcher = {
 
         this.items[name] = {
             button: button,
+            color: color,
             Constructor: Constructor,
             dots: dots,
             last: null,
@@ -104,9 +105,11 @@ RWWM.launcher = {
                     item.dots.innerHTML = '<p></p><p></p><p></p>';
                     break;
             }
+            item.button.style.backgroundColor = item.color;
         } else {
             item.dots.className = 'dots';
             item.dots.innerHTML = '';
+            item.button.style.backgroundColor = 'transparent';
         }
     }
 };

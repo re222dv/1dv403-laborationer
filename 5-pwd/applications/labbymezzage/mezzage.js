@@ -263,4 +263,4 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.onclose = function() {
     }
 };
 
-RWWM.launcher.add('Labby Mezzage', 'applications/labbymezzage/icon.png', RWWM.applications.labbymezzage.LabbyMessage);
+RWWM.launcher.add('Labby Mezzage', 'applications/labbymezzage/icon.png', RWWM.applications.labbymezzage.LabbyMessage, '#3e6a9a');

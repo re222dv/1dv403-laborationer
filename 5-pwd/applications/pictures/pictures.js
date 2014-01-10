@@ -91,4 +91,4 @@ RWWM.applications.pictures.Pictures = function() {
 RWWM.applications.pictures.Pictures.prototype = Object.create(RWWM.Window.prototype);
 RWWM.applications.pictures.Pictures.prototype.constructor = RWWM.applications.pictures.Pictures;
 
-RWWM.launcher.add('Pictures', 'applications/pictures/icon.png', RWWM.applications.pictures.Pictures);
+RWWM.launcher.add('Pictures', 'applications/pictures/icon.png', RWWM.applications.pictures.Pictures, '#a16139');

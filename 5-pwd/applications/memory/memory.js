@@ -206,4 +206,4 @@ RWWM.applications.memory.Memory.prototype.won = function() {
     this.setStatus('You won in ' + this.tries + ' tries, ' + rate);
 };
 
-RWWM.launcher.add('Memory', 'applications/memory/icon.png', RWWM.applications.memory.Memory);
+RWWM.launcher.add('Memory', 'applications/memory/icon.png', RWWM.applications.memory.Memory, '#3e6399');
