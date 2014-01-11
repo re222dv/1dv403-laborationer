@@ -156,8 +156,6 @@ RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
     resizeable = resizeable !== undefined ? resizeable : true;
 
     var that = this;
-    width += 4;
-    height += 50;
 
     this.name = name;
     this.title = title;
