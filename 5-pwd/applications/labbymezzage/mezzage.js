@@ -7,11 +7,11 @@ RWWM.applications.labbymezzage = {};
 RWWM.applications.labbymezzage.Message = function(writer, message, date) {
 
     this.getWriter = function() {
-        return writer;
+        return writer || 'Anonymous';
     };
 
     this.getText = function() {
-        return message;
+        return message || 'Empty message';
     };
 
     this.getDate = function() {
@@ -24,20 +24,61 @@ RWWM.applications.labbymezzage.Message.prototype.getHtmlText = function() {
 };
 
 RWWM.applications.labbymezzage.Message.prototype.getDateText = function() {
-    var hours = ("0" + this.getDate().getHours()).slice(-2);
-    var minutes = ("0" + this.getDate().getMinutes()).slice(-2);
-    var seconds = ("0" + this.getDate().getSeconds()).slice(-2);
-    return hours + ':' + minutes + ':' + seconds;
+    // Idea and example from http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
+
+    var seconds = Math.floor((new Date() - this.getDate()) / 1000);
+    var text = 'About {0} ago';
+
+    var interval = Math.floor(seconds / 31536000); // Seconds per year
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' year');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' years');
+    }
+
+    interval = Math.floor(seconds / 2592000);// Seconds per month
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' month');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' months');
+    }
+
+    interval = Math.floor(seconds / 86400);// Seconds per day
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' day');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' days');
+    }
+
+    interval = Math.floor(seconds / 3600);// Seconds per hour
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' hour');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' hours');
+    }
+
+    interval = Math.floor(seconds / 60);// Seconds per minute
+    if (interval === 1) {
+        return text.replace('{0}', interval + ' minute');
+    } else if (interval > 1) {
+        return text.replace('{0}', interval + ' minutes');
+    }
+
+    return text.replace('{0}', Math.floor(seconds) + ' seconds');
 };
 
 RWWM.applications.labbymezzage.LabbyMessage = function() {
     var that = this;
-    RWWM.Window.call(this, 400, 500, 'Labby Message', 'applications/labbymezzage/icon.png', {
+
+    var interval = window.localStorage.getItem('interval') || '10 seconds';
+    this.numMessages = window.localStorage.getItem('numMessages') || '10';
+
+    RWWM.Window.call(this, 'Labby Mezzage', 400, 500, 'Labby Mezzage', 'applications/labbymezzage/icon.png', {
         'File': {'Close': this.close},
         'Edit': {
             'Update': this.update,
-            'Interval': [{'selected': '10 seconds', 'onchange': this.setInterval}, '10 seconds', '20 seconds', '30 seconds', '1 minute'],
-            'Number of Messages': [{'selected': '10', 'onchange': this.setNumMessages}, '10', '20', '30', '40', '50'],
+            'Interval': [{'selected': interval, 'onchange': this.setInterval}, '10 seconds', '20 seconds', '30 seconds', '1 minute'],
+            'Number of Messages': [{'selected': this.numMessages, 'onchange': this.setNumMessages}, '10', '30', '50', '100'],
             'Alias': this.setupAlias
         }
     });
@@ -45,7 +86,7 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     this.container.classList.add('mezzage');
 
     this.messages = [];
-    this.alias = 'Rasmus';
+    this.alias = window.localStorage.getItem('alias') || 'Anonymous';
 
     this.messageField = document.createElement('div');
     var write = document.createElement('div');
@@ -72,7 +113,8 @@ RWWM.applications.labbymezzage.LabbyMessage = function() {
     write.appendChild(button);
     this.view.appendChild(write);
 
-    this.updateCounter();
+    this.setInterval(interval);
+    this.update();
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype = Object.create(RWWM.Window.prototype);
@@ -84,22 +126,73 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.getAlias = function() {
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.setupAlias = function() {
     this.alias = prompt('Alias', this.alias);
+    window.localStorage.setItem('alias', this.alias);
 };
 
-RWWM.applications.labbymezzage.LabbyMessage.prototype.setInterval = function() {
-    //TODO
+RWWM.applications.labbymezzage.LabbyMessage.prototype.setInterval = function(interval) {
+    var that = this;
+
+    window.localStorage.setItem('interval', interval);
+
+    if (this.interval) {
+        window.clearInterval(this.interval);
+    }
+
+    switch (interval) {
+        case '10 seconds':
+            interval = 10000;
+            break;
+        case '20 seconds':
+            interval = 20000;
+            break;
+        case '30 seconds':
+            interval = 30000;
+            break;
+        case '1 minute':
+            interval = 60000;
+            break;
+    }
+
+    this.interval = window.setInterval(function() {
+        that.update.call(that);
+    }, interval);
 };
 
-RWWM.applications.labbymezzage.LabbyMessage.prototype.setNumMessages = function() {
-    //TODO
+RWWM.applications.labbymezzage.LabbyMessage.prototype.setNumMessages = function(numMessages) {
+    window.localStorage.setItem('numMessages', numMessages);
+    this.numMessages = numMessages;
+    this.update();
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.update = function() {
-    //TODO
-};
+    var that = this;
 
-RWWM.applications.labbymezzage.LabbyMessage.prototype.updateCounter = function() {
-    this.setStatus('Number of messages: ' + this.messages.length);
+    var timeout = window.setTimeout(function() {
+        that.setStatusLoading();
+    }, 100);
+
+    $.get('http://homepage.lnu.se/staff/tstjo/labbyserver/getMessage.php', {history: this.numMessages}, function(xml) {
+        that.messages = [];
+
+        $(xml).find('messages').each(function() {
+            $(this).find('message').each(function() {
+                var writer = $(this).find('author').text();
+                var text = $(this).find('text').text();
+                var date = new Date(+$(this).find('time').text());
+
+                that.messages.push(new RWWM.applications.labbymezzage.Message(writer, text, date));
+            });
+        });
+
+        that.redrawMessages();
+        window.clearTimeout(timeout);
+        var now = new Date();
+        that.setStatus('Last updated ' + ('00' + now.getHours()).slice(-2) + ':' +
+                                         ('00' + now.getMinutes()).slice(-2) + ':' +
+                                         ('00' + now.getSeconds()).slice(-2));
+
+        $(that.messageField).animate({scrollTop: parseInt(that.messageField.scrollHeight)}, 300);
+    }, 'xml');
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.showMessage = function(message) {
@@ -120,18 +213,17 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.showMessage = function(mes
     date.className = 'date';
     date.innerHTML = message.getDateText();
     date.onclick = function() {
-        var months = [ "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September",
-            "Oktober", "November", "December" ];
         var day = message.getDate().getDate();
-        var month = months[message.getDate().getMonth()];
+        var month = message.getDate().getMonth() + 1;
         var year = message.getDate().getFullYear();
-        alert('Inlägget skapades den ' + day + ' ' + month + ' ' + year + ' klockan ' + message.getDateText());
+        alert('Posted the ' + day + '/' + month + '-' + year + ' at ' +
+            ('00' + message.getDate().getHours()).slice(-2) + ':' +
+            ('00' + message.getDate().getMinutes()).slice(-2) + ':' +
+            ('00' + message.getDate().getSeconds()).slice(-2));
     };
     element.appendChild(date);
 
     this.messageField.appendChild(element);
-
-    this.updateCounter();
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.redrawMessages = function() {
@@ -140,16 +232,35 @@ RWWM.applications.labbymezzage.LabbyMessage.prototype.redrawMessages = function(
     for (var i = 0; i < this.messages.length; i++) {
         this.showMessage(this.messages[i]);
     }
-
-    this.updateCounter();
 };
 
 RWWM.applications.labbymezzage.LabbyMessage.prototype.postMessage = function() {
-    var message = new RWWM.applications.labbymezzage.Message(this.getAlias(), this.textarea.value, new Date());
-    this.messages.push(message);
+    var that = this;
 
-    this.showMessage(message);
-    this.textarea.value = '';
+    var text = that.textarea.value;
+    that.textarea.value = '';
+
+    var timeout = window.setTimeout(function() {
+        that.setStatusLoading();
+
+        var message = new RWWM.applications.labbymezzage.Message(that.getAlias(), text, new Date());
+        that.messages.push(message);
+        that.showMessage(message);
+
+        $(that.messageField).animate({scrollTop: parseInt(that.messageField.scrollHeight)}, 300);
+    }, 100);
+
+    $.post('http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php',
+           {username: this.getAlias(), text: text}, function() {
+        window.clearTimeout(timeout);
+        that.update();
+    });
 };
 
-RWWM.launcher.add('Labby Mezzage', 'applications/labbymezzage/icon.png', RWWM.applications.labbymezzage.LabbyMessage);
+RWWM.applications.labbymezzage.LabbyMessage.prototype.onclose = function() {
+    if (this.interval) {
+        window.clearInterval(this.interval);
+    }
+};
+
+RWWM.launcher.add('Labby Mezzage', 'applications/labbymezzage/icon.png', RWWM.applications.labbymezzage.LabbyMessage, '#3e6a9a');

@@ -33,7 +33,7 @@
             p {
                 margin: 0;
                 margin-top: -8px;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
 
                 width: 100%;
 
@@ -50,6 +50,10 @@
                 text-align: right;
 
                 cursor: pointer;
+            }
+
+            .date:hover {
+                text-decoration: underline;
             }
         }
     }

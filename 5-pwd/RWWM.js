@@ -2,11 +2,127 @@
 
 var RWWM = RWWM || {};
 
+RWWM.launcher = {
+    launcher: document.createElement('div'),
+    items: {},
+    width: 59,
+
+    init: function() {
+        this.launcher.className = 'launcher';
+        RWWM.root.appendChild(this.launcher);
+    },
+    add: function(name, icon, Constructor, color) {
+        var button = document.createElement('div');
+        var icon_e = document.createElement('img');
+        icon_e.setAttribute('src', icon);
+        button.appendChild(icon_e);
+        button.onclick = function(event) {
+            if (event.target === this.firstChild) {
+                var item = RWWM.launcher.items[name];
+
+                if (item.windows.length < 1) {
+                    new Constructor();
+                } else {
+                    if (item.last === RWWM.windows.open[RWWM.windows.open.length-1] &&
+                        item.last.container.style.display !== 'none') {
+                        new Constructor();
+                    } else {
+                        item.last.focus();
+                    }
+                }
+            }
+        };
+
+        var dots = document.createElement('div');
+        dots.className = 'dots';
+        button.appendChild(dots);
+
+        var focus = document.createElement('span');
+        focus.className = 'focus';
+        button.appendChild(focus);
+
+        var tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        var ul = document.createElement('ul');
+
+        tooltip.appendChild(ul);
+        button.appendChild(tooltip);
+        this.launcher.appendChild(button);
+
+        this.items[name] = {
+            button: button,
+            color: color,
+            Constructor: Constructor,
+            dots: dots,
+            last: null,
+            tooltip: ul,
+            windows: []
+        };
+
+        this.drawTooltip(name);
+    },
+
+    drawTooltip: function(name) {
+        var item = this.items[name];
+
+        item.tooltip.innerHTML = '';
+
+        var li = document.createElement('li');
+        li.innerHTML = name;
+        li.onclick = function() {
+            new item.Constructor();
+        };
+        item.tooltip.appendChild(li);
+
+        if (RWWM.launcher.items[name].windows.length > 0) {
+            item.tooltip.appendChild(document.createElement('hr'));
+
+            RWWM.launcher.items[name].windows.forEach(function(window) {
+                var li = document.createElement('li');
+                $(li).text(window.title);
+                li.onclick = function() {
+                    window.focus.call(window);
+                    this.onmouseout();
+                };
+                li.onmouseover = function() {
+                    window.container.classList.add('show');
+                    $('.window').addClass('fade');
+                };
+                li.onmouseout = function() {
+                    $('.fade').removeClass('fade');
+                    window.container.classList.remove('show');
+                };
+                item.tooltip.appendChild(li);
+            });
+
+            switch (RWWM.launcher.items[name].windows.length) {
+                case 1:
+                    item.dots.className = 'dots one';
+                    item.dots.innerHTML = '<p></p>';
+                    break;
+                case 2:
+                    item.dots.className = 'dots two';
+                    item.dots.innerHTML = '<p></p><p></p>';
+                    break;
+                default :
+                    item.dots.className = 'dots three';
+                    item.dots.innerHTML = '<p></p><p></p><p></p>';
+                    break;
+            }
+            item.button.style.backgroundColor = item.color;
+        } else {
+            item.dots.className = 'dots';
+            item.dots.innerHTML = '';
+            item.button.style.backgroundColor = 'transparent';
+        }
+    }
+};
+
 RWWM.windows = {
     open: [],
 
-    top: 1,
-    left: 53,
+    top: 0,
+    left: RWWM.launcher.width,
 
     getTop: function(height) {
         height += 75;
@@ -24,7 +140,7 @@ RWWM.windows = {
         width += 8;
 
         if (this.left + width > $(RWWM.root).width()) {
-            this.left = 53;
+            this.left = RWWM.launcher.width;
         }
 
         this.left += 15;
@@ -33,7 +149,7 @@ RWWM.windows = {
     }
 };
 
-RWWM.Window = function(width, height, title, icon, menu, resizeable) {
+RWWM.Window = function(name, width, height, title, icon, menu, resizeable) {
     menu = menu || {
         'File': {'Close': this.close}
     };
@@ -41,6 +157,8 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
     var that = this;
 
+    this.name = name;
+    this.title = title;
     this.resizeable = resizeable;
 
     this.container = document.createElement('div');
@@ -68,12 +186,17 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     }, true);
 
     var close = document.createElement('button');
-    this.title = document.createElement('span');
+    var minimize = document.createElement('button');
+    this.title_e = document.createElement('span');
     var icon_e = document.createElement('img');
 
     close.className = 'close';
     close.onclick = function(e) {that.close(); e.stopPropagation()};
     close.onmousedown = function(e) {e.stopPropagation()};
+
+    minimize.className = 'minimize';
+    minimize.onclick = function(e) {that.minimize(); e.stopPropagation()};
+    minimize.onmousedown = function(e) {e.stopPropagation()};
 
     this.setTitle(title);
 
@@ -81,7 +204,7 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
     if (resizeable) {
         this.container.classList.add('resizeable');
-        this.title.classList.add('twoButtons');
+        this.title_e.classList.add('threeButtons');
 
         var maximize = document.createElement('button');
 
@@ -103,7 +226,8 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
     }
 
     decorator.appendChild(close);
-    decorator.appendChild(this.title);
+    decorator.appendChild(minimize);
+    decorator.appendChild(this.title_e);
     decorator.appendChild(icon_e);
 
     this.view.className = 'view';
@@ -120,8 +244,20 @@ RWWM.Window = function(width, height, title, icon, menu, resizeable) {
 
     RWWM.root.appendChild(this.container);
 
+    if (RWWM.launcher.items[name]) {
+        RWWM.launcher.items[name].last = this;
+        RWWM.launcher.items[name].windows.push(this);
+
+        RWWM.launcher.drawTooltip(name);
+    }
+
     RWWM.windows.open.push(this);
     this.container.style.zIndex = RWWM.windows.open.length;
+    $('.launcher > .focus').removeClass('focus');
+    if (RWWM.launcher.items[this.name] && RWWM.launcher.items[this.name].button) {
+        RWWM.launcher.items[this.name].button.classList.add('focus');
+    }
+
     this.container.addEventListener('mousedown', function() {return that.focus()}, true);
 };
 
@@ -140,7 +276,7 @@ RWWM.Window.prototype.setSize = function(width, height) {
 
     if (left + width > $(RWWM.root).width()) {
         left = left - ((left + width) - $(RWWM.root).width());
-        left = left < 53 ? 53 : left;
+        left = left < RWWM.launcher.width ? RWWM.launcher.width : left;
         this.container.style.left = left + 'px';
     }
 
@@ -157,7 +293,10 @@ RWWM.Window.prototype.setStatusLoading = function() {
 };
 
 RWWM.Window.prototype.setTitle = function(title) {
-    $(this.title).text(title);
+    this.title = title;
+    $(this.title_e).text(title);
+
+    RWWM.launcher.drawTooltip(this.name);
 };
 
 RWWM.Window.prototype.close = function() {
@@ -168,6 +307,28 @@ RWWM.Window.prototype.close = function() {
     var index = RWWM.windows.open.indexOf(this);
     if (index > -1) {
         RWWM.windows.open.splice(index, 1);
+    }
+
+    if (RWWM.launcher.items[this.name]) {
+        if (RWWM.launcher.items[this.name].button) {
+            RWWM.launcher.items[this.name].button.classList.remove('focus');
+        }
+
+        index = RWWM.launcher.items[this.name].windows.indexOf(this);
+
+        if (index > -1) {
+            RWWM.launcher.items[this.name].windows.splice(index, 1);
+        }
+
+        RWWM.launcher.drawTooltip(this.name);
+    }
+
+    if (RWWM.windows.open.length > 0) {
+        var next = RWWM.windows.open[RWWM.windows.open.length - 1];
+
+        if (RWWM.launcher.items[next.name] && RWWM.launcher.items[next.name].button) {
+            RWWM.launcher.items[next.name].button.classList.add('focus');
+        }
     }
 
     this.container.parentNode.removeChild(this.container);
@@ -189,6 +350,14 @@ RWWM.Window.prototype.maximize = function() {
     }
 };
 
+RWWM.Window.prototype.minimize = function() {
+    $(this.container).hide(300);
+};
+
+RWWM.Window.prototype.unminimize = function() {
+    $(this.container).show(300);
+};
+
 RWWM.Window.prototype.move = function(event, y, x) {
     var top = event.clientY - y;
     var left = event.clientX - x;
@@ -205,7 +374,7 @@ RWWM.Window.prototype.move = function(event, y, x) {
     }
 
     top = top < 0 ? 0 : top;
-    left = left < 53 ? 53 : left;
+    left = left < RWWM.launcher.width ? RWWM.launcher.width : left;
 
     this.container.style.top = top + 'px';
     this.container.style.left = left + 'px';
@@ -227,6 +396,19 @@ RWWM.Window.prototype.resize = function(event) {
 };
 
 RWWM.Window.prototype.focus = function() {
+    this.unminimize();
+
+    $('.launcher > .focus').removeClass('focus');
+
+    if (RWWM.launcher.items[this.name]) {
+        if (RWWM.launcher.items[this.name].button) {
+            RWWM.launcher.items[this.name].button.classList.add('focus');
+        }
+        if (RWWM.launcher.items[this.name].last) {
+            RWWM.launcher.items[this.name].last = this;
+        }
+    }
+
     var index = RWWM.windows.open.indexOf(this);
 
     if (index != RWWM.windows.open.length - 1) {
@@ -242,6 +424,7 @@ RWWM.Window.prototype.focus = function() {
 
         return false;
     }
+
     return true;
 };
 
@@ -314,28 +497,6 @@ RWWM.Window.prototype.renderMenu = function(menu) {
     this.menubar.innerHTML = '';
 
     this.renderUl(this.menubar, menu);
-};
-
-RWWM.launcher = {
-    launcher: document.createElement('div'),
-
-    init: function() {
-        this.launcher.className = 'launcher';
-        RWWM.root.appendChild(this.launcher);
-    },
-    add: function(name, icon, Constructor, kwargs) {
-        kwargs = kwargs || {};
-
-        var button = document.createElement('div');
-        var icon_e = document.createElement('img');
-        icon_e.setAttribute('src', icon);
-        icon_e.setAttribute('title', name);
-        button.appendChild(icon_e);
-        button.onclick = function() {
-            new Constructor(kwargs);
-        };
-        this.launcher.appendChild(button);
-    }
 };
 
 RWWM.setSize = function(width, height) {

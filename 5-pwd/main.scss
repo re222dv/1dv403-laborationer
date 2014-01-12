@@ -23,6 +23,7 @@ body {
     height: 100%;
 
     overflow: hidden;
+    z-index: 0;
 
     background-image: url("pics/background.jpg");
     background-size: cover;
@@ -43,34 +44,174 @@ body {
         top: 0;
         left: 0;
 
-        width: 52px;
+        width: 59px;
         height: 100%;
+        z-index: 999999;
 
         background: rgba(65, 65, 65, 0.5);
 
         border-right: 1px solid #000000;
 
-        div {
-            margin-top: 4px;
-            margin-left: 4px;
+        > div {
+            margin-top: 6px;
+            margin-left: 6px;
             padding: 1px;
 
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
 
             background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 50%);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 4px;
 
             img {
-                width: 40px;
-                height: 40px;
+                width: 44px;
+                height: 44px;
                 border-radius: 4px;
+            }
+
+            .dots {
+                position: absolute;
+                left: 0;
+
+                width: 3px;
+
+                p:before{
+                    content: '';
+                    display: block;
+                    margin-top: 8px;
+
+                    width: 0;
+                    height: 0;
+
+                    border-top: 4px solid transparent;
+                    border-left: 4px solid #fff;
+                    border-bottom: 4px solid transparent;
+                }
+
+                p {
+                    margin: 0;
+                    padding: 0;
+                    width: 0;
+                    height: 0;
+                }
+            }
+
+            .dots.one {
+                margin-top: -38px;
+
+                height: 3px;
+            }
+
+            .dots.two {
+                margin-top: -42px;
+
+                height: 6px;
+            }
+
+            .dots.three {
+                margin-top: -46px;
+
+                height: 9px;
+            }
+
+            .tooltip {
+                display: none;
+                position: relative;
+                bottom: 44px;
+
+                width: 250px;
+                z-index: -1;
+
+                text-align: left;
+
+                ul {
+                    position: relative;
+                    top: 2px;
+                    left: 62px;
+                    margin: 0;
+                    padding: 5px;
+
+                    width: 205px;
+
+                    color: #ffffff;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    border: 1px solid #333;
+                    border-radius: 5px;
+
+                    font-weight: bold;
+                    list-style: none;
+
+                    li {
+                        margin: 1px 4px;
+                        padding: 2px 4px;
+
+                        border-radius: 5px;
+                        cursor: pointer;
+                        overflow: hidden;
+                    }
+
+                    li:first-child:after {
+                        content: '+';
+                        position: absolute;
+                        top: 7px;
+                        right: 15px;
+
+                        -webkit-transform: scale(1.5);
+                        transform: scale(1.5);
+                    }
+
+                    li:hover {
+                        background-color: rgba(255, 255, 255, 0.2);
+                    }
+
+                    hr {
+                        margin: 4px;
+                        height: 1px;
+
+                        background: linear-gradient(to right, transparent 0%, #777 10%, #777 90%, transparent 100%);
+                        border: none;
+                    }
+                }
+
+                ul:before{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 8px;
+                    left: -8px;
+
+                    width: 0;
+                    height: 0;
+
+                    border-top: 8px solid transparent;
+                    border-right: 8px solid #333;
+                    border-bottom: 8px solid transparent;
+                }
             }
         }
 
-        div:hover {
+        > div:hover {
             background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.1) 70%);
+
+            .tooltip {
+                display: block;
+            }
+        }
+
+        > .focus .focus {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            margin-top: -29px;
+
+            width: 0;
+            height: 0;
+
+            border-top: 4px solid transparent;
+            border-right: 4px solid #fff;
+            border-bottom: 4px solid transparent;
         }
     }
 
@@ -82,6 +223,8 @@ body {
         background: #3c3b37;
         border: 1px solid #21201c;
         border-radius: 5px 5px 0 0;
+
+        transition: background-color 0.5s, border-color 0.5s;
 
         .decorator {
             position: absolute;
@@ -109,8 +252,13 @@ body {
                 height: 20px;
 
                 color: #000;
+                background: linear-gradient(to bottom, #86857f 0%, #55544f 100%);
                 border: 1px solid #21201c;
                 border-radius: 20px;
+            }
+
+            button:hover {
+                background: linear-gradient(to bottom, #d7d6d0 0%, #9b9a90 50%);
             }
 
             .close:before {
@@ -125,6 +273,16 @@ body {
                 background: linear-gradient(to bottom, #ff9469 0%, #f78b6a 50%);
             }
 
+            .minimize:before {
+                content: '\2012';
+                position: relative;
+                bottom: 1px;
+            }
+
+            .minimize {
+                left: 27px;
+            }
+
             .maximize:before {
                 content: '\25FB';
                 position: relative;
@@ -132,24 +290,18 @@ body {
             }
 
             .maximize {
-                left: 27px;
-
-                background: linear-gradient(to bottom, #86857f 0%, #55544f 100%);
+                left: 49px;
 
                 line-height: 5px;
                 vertical-align: top;
             }
 
-            .maximize:hover {
-                background: linear-gradient(to bottom, #d7d6d0 0%, #9b9a90 50%);
-            }
-
             span {
                 position: absolute;
                 top: 5px;
-                left: 30px;
+                left: 52px;
 
-                max-width: calc(100% - 55px);
+                max-width: calc(100% - 77px);
                 overflow: hidden;
 
                 color: #ffffff;
@@ -159,10 +311,10 @@ body {
                 white-space: nowrap;
             }
 
-            span.twoButtons {
-                left: 52px;
+            span.threeButtons {
+                left: 74px;
 
-                max-width: calc(100% - 77px);
+                max-width: calc(100% - 99px);
             }
 
             img {
@@ -354,11 +506,15 @@ body {
                 margin-bottom: -3px;
             }
         }
+
+        .decorator, .menubar, .view, .statusbar, .handle {
+            transition: opacity 0.5s;
+        }
     }
 
     .window.maximized {
         top: 0 !important;
-        left: 52px !important;
+        left: 59px !important;
 
         width: calc(100% - 52px) !important;
         height: 100% !important;
@@ -392,6 +548,15 @@ body {
 
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
+    }
+
+    .window.fade:not(.show) {
+        background-color: transparent;
+        border-color: #ffffff;
+
+        .decorator, .menubar, .view, .statusbar, .handle {
+            opacity: 0.1;
+        }
     }
 
     .animate {

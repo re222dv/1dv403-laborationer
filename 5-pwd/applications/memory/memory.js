@@ -67,7 +67,7 @@ RWWM.applications.memory.RandomGenerator = {
 };
 
 RWWM.applications.memory.Memory = function() {
-    RWWM.Window.call(this, 320, 320, 'Memory', 'applications/memory/icon.png', {
+    RWWM.Window.call(this, 'Memory', 320, 320, 'Memory', 'applications/memory/icon.png', {
         'File': {'Close': this.close},
         'Edit': {
             'Restart': this.restart,
@@ -206,4 +206,4 @@ RWWM.applications.memory.Memory.prototype.won = function() {
     this.setStatus('You won in ' + this.tries + ' tries, ' + rate);
 };
 
-RWWM.launcher.add('Memory', 'applications/memory/icon.png', RWWM.applications.memory.Memory);
+RWWM.launcher.add('Memory', 'applications/memory/icon.png', RWWM.applications.memory.Memory, '#3e6399');

@@ -15,7 +15,7 @@ RWWM.applications.pictures.Picture = function(image) {
         width -= 1;
     }
 
-    RWWM.Window.call(this, width, height, 'Picture', 'applications/pictures/icon.png');
+    RWWM.Window.call(this, 'Pictures', width, height, 'Picture', 'applications/pictures/icon.png');
 
     this.container.classList.add('picture');
 
@@ -46,7 +46,7 @@ RWWM.applications.pictures.Picture.prototype.onresize = function() {
 
 RWWM.applications.pictures.Pictures = function() {
     var that = this;
-    RWWM.Window.call(this, 365, 500, 'Pictures', 'applications/pictures/icon.png');
+    RWWM.Window.call(this, 'Pictures', 365, 500, 'Pictures', 'applications/pictures/icon.png');
 
     this.container.classList.add('pictures');
 
@@ -91,4 +91,4 @@ RWWM.applications.pictures.Pictures = function() {
 RWWM.applications.pictures.Pictures.prototype = Object.create(RWWM.Window.prototype);
 RWWM.applications.pictures.Pictures.prototype.constructor = RWWM.applications.pictures.Pictures;
 
-RWWM.launcher.add('Pictures', 'applications/pictures/icon.png', RWWM.applications.pictures.Pictures);
+RWWM.launcher.add('Pictures', 'applications/pictures/icon.png', RWWM.applications.pictures.Pictures, '#a16139');
